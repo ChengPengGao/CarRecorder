@@ -18,4 +18,6 @@ public class GlobalConfig {
      * 当前登录的人员id
      */
     public static String userId = "";
+
+    public static float profit = 20.00f;
 }

@@ -14,6 +14,8 @@ public class CarRecorderEvent {
 
     public static final int LOGOUT = 3;
 
+    public static final int ADD = 4;
+
     /**
      * 用于表示操作码
      */

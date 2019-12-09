@@ -11,4 +11,5 @@ public class GlobalConstants {
     public static final String USER_ID = "userId";
     public static final String IS_LOGIN = "isLogin";
     public static final String IS_BINDED = "isBinded";
+    public static final String PROFIT = "profit";
 }

@@ -24,12 +24,18 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         initView();
+
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            GlobalConfig.profit += 0.01f;
+            EventBus.getDefault().post(new CarRecorderEvent(CarRecorderEvent.ADD));
+        },2,1,TimeUnit.SECONDS);
 
     }
 

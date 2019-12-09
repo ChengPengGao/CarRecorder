@@ -2,12 +2,14 @@ package com.cf.carrecorder.ui.mine;
 
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cf.carrecorder.R;
 import com.cf.carrecorder.app.InitManager;
 import com.cf.carrecorder.base.fragment.BaseFragment;
 import com.cf.carrecorder.config.GlobalConfig;
+import com.cf.carrecorder.config.GlobalConstants;
 import com.cf.carrecorder.event.CarRecorderEvent;
 import com.cf.carrecorder.ui.about.AboutFragment;
 import com.cf.carrecorder.ui.bind.DeviceBindFragment;
@@ -19,9 +21,14 @@ import com.cf.carrecorder.ui.mine.feedback.FeedbackFragment;
 import com.cf.carrecorder.ui.report.ReportFragment;
 import com.cf.carrecorder.ui.mine.reported.ReportedFragment;
 import com.cf.carrecorder.utils.FragmentSwitcher;
+import com.cf.carrecorder.utils.SPUtil;
+import com.cf.carrecorder.utils.SyncUtil;
 import com.cf.carrecorder.utils.ToastUtil;
+import com.cf.carrecorder.utils.TypeSafer;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.text.DecimalFormat;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -38,6 +45,9 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
     LinearLayout llBottom;
     @BindView(R.id.ll_add)
     LinearLayout llAdd;
+
+    @BindView(R.id.tv_profit)
+    TextView tvProfit;
 
     public static MineFragment getInstance() {
         if (instance == null) {
@@ -65,6 +75,20 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
     @OnClick(R.id.rl_user)
     public void onClickUser(View v) {
         Toast.makeText(getActivity(), "人员信息", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onEventMainThread(CarRecorderEvent event) {
+        super.onEventMainThread(event);
+        switch (event.getType()) {
+            case CarRecorderEvent.ADD:
+                DecimalFormat decimalFormat=new DecimalFormat(".00");
+                String p=decimalFormat.format(GlobalConfig.profit);
+                TypeSafer.text(tvProfit,p + "元");
+                break;
+            default:
+                break;
+        }
     }
 
     @OnClick({R.id.tv_footPrint,
