@@ -6,12 +6,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="66dp">
+        android:layout_height="66dp"
+        android:paddingLeft="10dp">
 
         <ImageView
             android:id="@+id/iv_back"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_margin="5dp"
@@ -35,6 +36,7 @@
         android:background="@color/gray" />
 
     <LinearLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -60,6 +62,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -85,6 +88,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"

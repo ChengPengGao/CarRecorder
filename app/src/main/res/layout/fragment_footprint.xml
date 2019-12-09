@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:background="@color/white"
         android:id="@+id/ll_all"
         android:clickable="true"
         android:layout_width="match_parent"
@@ -60,6 +61,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:gravity="center_vertical">

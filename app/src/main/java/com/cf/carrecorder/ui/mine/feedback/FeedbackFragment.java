@@ -6,6 +6,7 @@ import android.widget.EditText;
 
 import com.cf.carrecorder.R;
 import com.cf.carrecorder.base.fragment.BaseFragment;
+import com.cf.carrecorder.utils.FragmentSwitcher;
 import com.cf.carrecorder.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -46,9 +47,12 @@ public class FeedbackFragment extends BaseFragment<FeedbackView, FeedbackPresent
         return new FeedbackPresenter();
     }
 
-    @OnClick(R.id.btn_send)
+    @OnClick({R.id.iv_back,R.id.btn_send})
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.iv_back:
+                FragmentSwitcher.back();
+                break;
             case R.id.btn_send:
                 if(TextUtils.isEmpty(etFeedback.getText().toString())){
                     ToastUtil.show("意见反馈不能为空");
