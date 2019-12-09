@@ -1,15 +1,14 @@
 package com.cf.carrecorder.adapter;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.cf.carrecorder.R;
 import com.cf.carrecorder.bean.GridBean;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * @author chenxihu
@@ -27,6 +26,7 @@ public class GirdAdapter extends BaseQuickAdapter<GridBean, BaseViewHolder> {
         helper
                 .setText(R.id.tv_time, item.getTime())
                 .setText(R.id.tv_code, item.getCode());
+
 
     }
 }
