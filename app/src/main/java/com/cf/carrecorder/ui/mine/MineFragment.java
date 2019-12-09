@@ -60,6 +60,10 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
     @Override
     protected void initView(View view) {
         showBottomBar();
+
+        DecimalFormat decimalFormat=new DecimalFormat(".00");
+        String p=decimalFormat.format(GlobalConfig.profit);
+        TypeSafer.text(tvProfit,p + "元");
     }
 
     @Override

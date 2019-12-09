@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
         initView();
 
         scheduledExecutorService.scheduleAtFixedRate(() -> {
-            GlobalConfig.profit += 0.01f;
+            GlobalConfig.profit += 0.05f;
             EventBus.getDefault().post(new CarRecorderEvent(CarRecorderEvent.ADD));
-        },2,1,TimeUnit.SECONDS);
+        },0,2,TimeUnit.MINUTES);
 
     }
 
