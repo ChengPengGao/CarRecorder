@@ -170,9 +170,9 @@
                 android:id="@+id/rl_car"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
+                android:paddingTop="20dp"
                 android:clickable="true"
-                android:paddingBottom="10dp"
+                android:paddingBottom="20dp"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp">
                 <TextView
@@ -201,9 +201,9 @@
                 android:id="@+id/rl_editPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
+                android:paddingTop="20dp"
                 android:clickable="true"
-                android:paddingBottom="10dp"
+                android:paddingBottom="20dp"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp">
                 <TextView
@@ -232,9 +232,9 @@
                 android:id="@+id/rl_shopping"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
+                android:paddingTop="20dp"
                 android:clickable="true"
-                android:paddingBottom="10dp"
+                android:paddingBottom="20dp"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp">
                 <TextView
@@ -263,9 +263,9 @@
                 android:id="@+id/rl_feedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
+                android:paddingTop="20dp"
                 android:clickable="true"
-                android:paddingBottom="10dp"
+                android:paddingBottom="20dp"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp">
                 <TextView
@@ -294,9 +294,9 @@
                 android:id="@+id/rl_about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
+                android:paddingTop="20dp"
                 android:clickable="true"
-                android:paddingBottom="10dp"
+                android:paddingBottom="20dp"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp">
                 <TextView

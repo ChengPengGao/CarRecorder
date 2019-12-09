@@ -109,7 +109,7 @@ public abstract class BaseFragment<V extends BaseFragmentView, T extends BaseFra
     /**
      * 隐藏软键盘
      */
-    private void hideSoftInput() {
+    public void hideSoftInput() {
         View v = getActivity().getCurrentFocus();
         if (v != null && v.getWindowToken() != null) {
             InputMethodManager manager = (InputMethodManager) getContext()

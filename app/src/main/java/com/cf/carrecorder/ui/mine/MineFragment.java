@@ -14,6 +14,7 @@ import com.cf.carrecorder.ui.bind.DeviceBindFragment;
 import com.cf.carrecorder.ui.foorprint.FootPrintFragment;
 import com.cf.carrecorder.ui.mine.car.CarFragment;
 import com.cf.carrecorder.ui.mine.devices.DevicesFragment;
+import com.cf.carrecorder.ui.mine.feedback.FeedbackFragment;
 import com.cf.carrecorder.ui.report.ReportFragment;
 import com.cf.carrecorder.ui.mine.reported.ReportedFragment;
 import com.cf.carrecorder.utils.FragmentSwitcher;
@@ -74,7 +75,8 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
             R.id.btn_exit,
             R.id.tv_reported,
             R.id.tv_devices,
-            R.id.rl_car})
+            R.id.rl_car,
+            R.id.rl_feedback})
     protected void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_footPrint:
@@ -110,6 +112,9 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
             case R.id.rl_car:
                 FragmentSwitcher.replaceFragment(CarFragment.getInstance());
                 break;
+            case R.id.rl_feedback:
+                FragmentSwitcher.replaceFragment(FeedbackFragment.getInstance());
+                break;
             case R.id.btn_exit:
                 InitManager.getInstance().logout();
                 EventBus.getDefault().post(new CarRecorderEvent(CarRecorderEvent.LOGOUT));
@@ -120,6 +125,7 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
             case R.id.tv_devices:
                 FragmentSwitcher.replaceFragment(DevicesFragment.getInstance());
                 break;
+
             default:
                 break;
         }
