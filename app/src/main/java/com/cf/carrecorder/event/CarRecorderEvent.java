@@ -12,6 +12,8 @@ public class CarRecorderEvent {
 
     public static final int BIND = 2;
 
+    public static final int LOGOUT = 3;
+
     /**
      * 用于表示操作码
      */

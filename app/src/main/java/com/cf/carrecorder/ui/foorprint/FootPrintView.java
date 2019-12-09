@@ -37,4 +37,14 @@ public interface FootPrintView extends BaseFragmentView {
      * @param datas
      */
     void showGridData(List<GridBean> datas);
+
+    /**
+     * 显示底部布局
+     */
+    void showBottomBar();
+
+    /**
+     * 显示添加布局
+     */
+    void showAddBar();
 }

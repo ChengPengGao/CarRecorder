@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/ll_all"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -146,7 +147,7 @@
                     android:textSize="16dp"
                     android:text="我的收藏" />
                 <TextView
-                    android:id="@+id/tv_report"
+                    android:id="@+id/tv_reported"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:clickable="true"
@@ -155,7 +156,7 @@
                     android:textSize="16dp"
                     android:text="我的举报" />
                 <TextView
-                    android:id="@+id/tv_device"
+                    android:id="@+id/tv_devices"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:clickable="true"

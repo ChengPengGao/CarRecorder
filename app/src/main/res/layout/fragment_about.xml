@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="44dp">
+        android:layout_height="66dp">
 
         <ImageView
             android:id="@+id/iv_back"
@@ -41,13 +41,13 @@
 
         <TextView
             android:id="@+id/tv_copyright"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="200dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:textColor="@color/black"
             android:textSize="16dp"
-            android:layout_marginBottom="200dp"
+            android:layout_marginBottom="500dp"
             android:gravity="center"
             android:text="Copyright@2019 Def-eyes \n All rights reserved"/>
 

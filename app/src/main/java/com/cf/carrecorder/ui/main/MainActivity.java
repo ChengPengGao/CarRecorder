@@ -53,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
                 FragmentSwitcher.replaceUnAddToBackStackFragment(MineFragment.getInstance());
                 hideSoftInput();
                 break;
+            case CarRecorderEvent.LOGOUT:
+                FragmentSwitcher.replaceUnAddToBackStackFragment(LoginFragment.getInstance());
+                hideSoftInput();
+                break;
             default:
                 break;
         }

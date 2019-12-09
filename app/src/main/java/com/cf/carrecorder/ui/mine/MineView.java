@@ -8,4 +8,13 @@ import com.cf.carrecorder.base.fragment.BaseFragmentView;
  * @email androidhcx@163.com
  **/
 public interface MineView extends BaseFragmentView {
+    /**
+     * 显示底部布局
+     */
+    void showBottomBar();
+
+    /**
+     * 显示添加布局
+     */
+    void showAddBar();
 }
