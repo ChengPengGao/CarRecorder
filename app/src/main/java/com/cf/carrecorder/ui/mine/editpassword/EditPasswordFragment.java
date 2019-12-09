@@ -33,7 +33,7 @@ public class EditPasswordFragment extends BaseFragment<EditPasswordView, EditPas
 
     @Override
     protected int initRootView() {
-        return R.layout.layout_editpassword;
+        return R.layout.fragment_editpassword;
     }
 
     @Override

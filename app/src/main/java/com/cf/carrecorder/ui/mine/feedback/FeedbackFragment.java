@@ -39,7 +39,7 @@ public class FeedbackFragment extends BaseFragment<FeedbackView, FeedbackPresent
 
     @Override
     protected int initRootView() {
-        return R.layout.layout_feedback;
+        return R.layout.fragment_feedback;
     }
 
     @Override

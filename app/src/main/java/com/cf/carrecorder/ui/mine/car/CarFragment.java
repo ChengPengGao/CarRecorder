@@ -30,7 +30,7 @@ public class CarFragment  extends BaseFragment<CarView,CarPresenter> implements 
 
     @Override
     protected int initRootView() {
-        return R.layout.layout_car;
+        return R.layout.fragment_car;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.cf.carrecorder.ui.mine.devices;
 
-import android.util.Log;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -55,7 +54,7 @@ public class DevicesFragment extends BaseFragment<DevicesView, DevicesPresenter>
 
     @Override
     protected int initRootView() {
-        return R.layout.layout_devices;
+        return R.layout.fragment_devices;
     }
 
     @Override

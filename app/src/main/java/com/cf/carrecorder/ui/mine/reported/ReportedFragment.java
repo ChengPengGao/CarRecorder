@@ -2,20 +2,37 @@ package com.cf.carrecorder.ui.mine.reported;
 
 import android.view.View;
 
-import com.cf.carrecorder.R;
-import com.cf.carrecorder.base.fragment.BaseFragment;
+import androidx.viewpager.widget.ViewPager;
 
+import com.cf.carrecorder.R;
+import com.cf.carrecorder.adapter.ReportedFragmentAdapter;
+import com.cf.carrecorder.base.fragment.BaseFragment;
+import com.cf.carrecorder.ui.mine.reported.item.ItemFragment;
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
  * 我的举报
+ *
  * @author chenxihu
  * @date 2019-12-09
  * @email androidhcx@163.com
  **/
-public class ReportedFragment extends BaseFragment<ReportedView,ReportedPresenter> implements  ReportedView {
+public class ReportedFragment extends BaseFragment<ReportedView, ReportedPresenter> implements ReportedView {
 
-    private static  ReportedFragment instance;
+    private static ReportedFragment instance;
+
+    @BindView(R.id.tl)
+    TabLayout tabLayout;
+    @BindView(R.id.vp)
+    ViewPager vp;
+
+    ReportedFragmentAdapter adapter;
 
     public static ReportedFragment getInstance() {
         if (instance == null) {
@@ -27,12 +44,25 @@ public class ReportedFragment extends BaseFragment<ReportedView,ReportedPresente
 
     @Override
     protected void initView(View view) {
+        List<String> titles = new ArrayList<>();
+        titles.add("全部");
+        titles.add("待审核");
+        titles.add("审核成功");
+        titles.add("审核失败");
 
+        List<ItemFragment> fragments = new ArrayList<>();
+        fragments.add(new ItemFragment());
+        fragments.add(new ItemFragment());
+        fragments.add(new ItemFragment());
+        fragments.add(new ItemFragment());
+        adapter = new ReportedFragmentAdapter(getActivity().getSupportFragmentManager(), fragments, titles);
+        vp.setAdapter(adapter);
+        tabLayout.setupWithViewPager(vp);
     }
 
     @Override
     protected int initRootView() {
-        return R.layout.layout_reported;
+        return R.layout.fragment_reported;
     }
 
     @Override
@@ -42,7 +72,7 @@ public class ReportedFragment extends BaseFragment<ReportedView,ReportedPresente
 
 
     @OnClick(R.id.iv_back)
-    public void onClick(View view){
+    public void onClick(View view) {
         back();
     }
 }
