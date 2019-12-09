@@ -26,7 +26,6 @@ public class CarRecorderApp extends Application {
 
 
         SPUtil.init(this);
-        SPUtil.clear();
         initConfig();
 
     }

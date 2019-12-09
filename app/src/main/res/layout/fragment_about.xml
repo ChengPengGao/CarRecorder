@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:clickable="true"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="关于"
+            android:textColor="@color/black"
+            android:textSize="22dp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_copyright"
+            android:layout_marginTop="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:layout_marginBottom="200dp"
+            android:gravity="center"
+            android:text="Copyright@2019 Def-eyes \n All rights reserved"/>
+
+
+        <TextView
+            android:id="@+id/tv_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="易路畅行1.1.2"
+            android:textColor="@color/black"
+            android:layout_marginTop="30dp"
+            android:textSize="18dp"
+            android:layout_marginLeft="50dp"
+            android:layout_above="@id/tv_copyright"/>
+
+
+        <TextView
+            android:id="@+id/tv_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="30dp"
+            android:text="官网公众号"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:layout_marginRight="50dp"
+            android:layout_above="@id/tv_copyright"/>
+
+        <ImageView
+            android:id="@+id/iv_version"
+            android:layout_marginLeft="55dp"
+            android:layout_above="@id/tv_version"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/iv_account"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="45dp"
+            android:layout_above="@id/tv_account"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="fitXY" />
+
+    </RelativeLayout>
+</LinearLayout>

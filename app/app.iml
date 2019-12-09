@@ -90,11 +90,11 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 28 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: __local_aars__:./app/libs/Msc.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:./app/libs/AMap3DMap_7.0.0_AMapNavi_7.0.0_20191008.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:./app/libs/AMap_Channel_Location_V1.4.0_20160708.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:./app/libs/AMap_Search_V6.9.2_20190709.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:./app/libs/AMap_Location_V4.7.2_20190927.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/Users/chenxihu/Documents/workspace/Android/CarRecorder/app/libs/Msc.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/Users/chenxihu/Documents/workspace/Android/CarRecorder/app/libs/AMap3DMap_7.0.0_AMapNavi_7.0.0_20191008.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/Users/chenxihu/Documents/workspace/Android/CarRecorder/app/libs/AMap_Channel_Location_V1.4.0_20160708.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/Users/chenxihu/Documents/workspace/Android/CarRecorder/app/libs/AMap_Search_V6.9.2_20190709.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/Users/chenxihu/Documents/workspace/Android/CarRecorder/app/libs/AMap_Location_V4.7.2_20190927.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.trello.rxlifecycle2:rxlifecycle:2.2.2@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.retrofit2:adapter-rxjava2:2.3.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: io.reactivex.rxjava2:rxjava:2.1.17@jar" level="project" />

@@ -7,6 +7,7 @@ import com.cf.carrecorder.R;
 import com.cf.carrecorder.base.fragment.BaseFragment;
 import com.cf.carrecorder.base.fragment.BaseFragmentPresenter;
 import com.cf.carrecorder.config.GlobalConfig;
+import com.cf.carrecorder.ui.about.AboutFragment;
 import com.cf.carrecorder.ui.bind.DeviceBindFragment;
 import com.cf.carrecorder.ui.foorprint.FootPrintFragment;
 import com.cf.carrecorder.ui.login.LoginFragment;
@@ -53,7 +54,7 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
         Toast.makeText(getActivity(), "人员信息", Toast.LENGTH_SHORT).show();
     }
 
-    @OnClick({R.id.tv_footPrint, R.id.iv_add})
+    @OnClick({R.id.tv_footPrint, R.id.iv_add,R.id.rl_about})
     protected void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_footPrint:
@@ -65,6 +66,9 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
                     return;
                 }
                 FragmentSwitcher.replaceFragment(ReportFragment.getInstance());
+                break;
+            case R.id.rl_about:
+                FragmentSwitcher.replaceFragment(AboutFragment.getInstance());
                 break;
             default:
                 break;
