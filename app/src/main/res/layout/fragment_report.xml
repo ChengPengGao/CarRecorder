@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
@@ -33,7 +35,9 @@
             android:singleLine="false"
             android:textSize="18dp"
             android:textColor="@color/black"
-            android:layout_margin="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="15dp"
             android:text="杭州市"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"/>
@@ -108,6 +112,22 @@
         android:background="@color/gray"
         android:text="上传举报证据（请上传至少3张图片，确保图片清晰）"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
+
+    <com.goyourfly.multi_picture.MultiPictureView
+        android:id="@+id/mpv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:editable="true"
+        app:addDrawable="@drawable/img_add"
+        app:imageLayoutMode="STATIC"
+        app:max="9"
+        app:ratio="1"
+        app:space="6dp"
+        app:span="3" />
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

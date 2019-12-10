@@ -9,6 +9,15 @@ public class GridBean {
     private String time;
     private String code;
     private String path;
+    private boolean isSelected;
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 
     public String getTime() {
         return time;

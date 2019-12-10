@@ -24,7 +24,7 @@ public class DevicesPresenter extends BaseFragmentPresenter {
     public void loadDevicesData() {
         List<DevicesBean> devicesBeans = new ArrayList<>();
 
-        for (int i = 0; i < 14; i++) {
+        for (int i = 0; i < 3; i++) {
             DevicesBean devicesBean = new DevicesBean();
             devicesBean.setName("行车记录仪" +(i+1) );
             devicesBean.setDeviceNo("23456743" + i);

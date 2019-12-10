@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdate;
@@ -34,6 +35,7 @@ import com.cf.carrecorder.ui.report.ReportFragment;
 import com.cf.carrecorder.utils.FragmentSwitcher;
 import com.cf.carrecorder.utils.SpacesItemDecoration;
 import com.cf.carrecorder.utils.ToastUtil;
+import com.cf.carrecorder.utils.TypeSafer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +84,9 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
     @BindView(R.id.ll_add)
     LinearLayout llAdd;
 
+    @BindView(R.id.tv_selected)
+    TextView tvSelected;
+
     GirdAdapter gridAdapter;
 
     List<GridBean> gridBeans;
@@ -117,7 +122,7 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
                 gridAdapter = new GirdAdapter(gridBeans);
                 rvGrid.setAdapter(gridAdapter);
                 rvGrid.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-                rvGrid.addItemDecoration(new SpacesItemDecoration(1));
+                rvGrid.addItemDecoration(new SpacesItemDecoration(3));
                 presenter.loadGridData();
                 break;
             case CarRecorderEvent.LOGOUT:
@@ -200,7 +205,7 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
         return new FootPrintPresenter();
     }
 
-    @OnClick({R.id.btn_bind, R.id.tv_mine, R.id.iv_add, R.id.ll_all, R.id.tv_bottom_bind, R.id.tv_bottom_report})
+    @OnClick({R.id.btn_bind, R.id.tv_mine, R.id.iv_add, R.id.ll_all, R.id.tv_bottom_bind, R.id.tv_bottom_report,R.id.tv_selected})
     protected void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_bind:
@@ -237,6 +242,15 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
                 }
                 FragmentSwitcher.replaceFragment(DeviceBindFragment.getInstance());
                 break;
+            case R.id.tv_selected:
+
+                gridAdapter.changeSelected();
+                if(gridAdapter.isSelectMode){
+                    TypeSafer.text(tvSelected,"返回");
+                }else{
+                    TypeSafer.text(tvSelected,"选择");
+                }
+                break;
             default:
                 break;
         }
@@ -256,12 +270,14 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
 
     @Override
     public void showGrid() {
+        tvSelected.setVisibility(View.VISIBLE);
         rvGrid.setVisibility(View.VISIBLE);
         mMapView.setVisibility(View.GONE);
     }
 
     @Override
     public void showMap() {
+        tvSelected.setVisibility(View.GONE);
         rvGrid.setVisibility(View.GONE);
         mMapView.setVisibility(View.VISIBLE);
     }
