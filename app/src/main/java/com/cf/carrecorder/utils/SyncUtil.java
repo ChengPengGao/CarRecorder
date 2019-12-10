@@ -23,6 +23,12 @@ public class SyncUtil {
         SPUtil.putString(GlobalConstants.USER_ID,userId);
     }
 
+
+    public static void setUserPhone(String userPhone){
+        GlobalConfig.userPhone = userPhone;
+        SPUtil.putString(GlobalConstants.USER_PHONE,userPhone);
+    }
+
     public static void setIsBinded(boolean isBinded){
         SPUtil.putBoolean(GlobalConstants.IS_BINDED,isBinded);
     }

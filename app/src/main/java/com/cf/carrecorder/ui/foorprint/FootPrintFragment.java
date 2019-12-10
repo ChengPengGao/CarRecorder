@@ -4,11 +4,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
@@ -26,6 +28,7 @@ import com.cf.carrecorder.R;
 import com.cf.carrecorder.adapter.grid.GirdAdapter;
 import com.cf.carrecorder.base.fragment.BaseFragment;
 import com.cf.carrecorder.bean.GridBean;
+import com.cf.carrecorder.bean.RecordListData;
 import com.cf.carrecorder.config.GlobalConfig;
 import com.cf.carrecorder.event.CarRecorderEvent;
 import com.cf.carrecorder.ui.bind.DeviceBindFragment;
@@ -87,9 +90,18 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
     @BindView(R.id.tv_selected)
     TextView tvSelected;
 
+    @BindView(R.id.tv_selectCount)
+    TextView tvSelectCount;
+
+    @BindView(R.id.rg_footprint)
+    RadioGroup radioGroup;
+
+    @BindView(R.id.ll_select)
+    LinearLayout llSelect;
+
     GirdAdapter gridAdapter;
 
-    List<GridBean> gridBeans;
+    List<RecordListData.RowsBean> gridBeans;
 
     public static FootPrintFragment getInstance() {
         if (instance == null) {
@@ -119,15 +131,14 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
 
 
                 gridBeans = new ArrayList<>();
-                gridAdapter = new GirdAdapter(gridBeans);
+                gridAdapter = new GirdAdapter(gridBeans, getActivity());
                 rvGrid.setAdapter(gridAdapter);
                 rvGrid.setLayoutManager(new GridLayoutManager(getActivity(), 4));
                 rvGrid.addItemDecoration(new SpacesItemDecoration(3));
                 presenter.loadGridData();
                 break;
-            case CarRecorderEvent.LOGOUT:
-                gridBeans.clear();
-                showUnBindLayout();
+            case CarRecorderEvent.SELECT:
+                TypeSafer.text(tvSelectCount, "已选择" + gridAdapter.getSelectedData().size() + "张");
                 break;
             default:
                 break;
@@ -141,7 +152,7 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
             showBottomBar();
 
             gridBeans = new ArrayList<>();
-            gridAdapter = new GirdAdapter(gridBeans);
+            gridAdapter = new GirdAdapter(gridBeans, getActivity());
             rvGrid.setAdapter(gridAdapter);
             rvGrid.setLayoutManager(new GridLayoutManager(getActivity(), 4));
             rvGrid.addItemDecoration(new SpacesItemDecoration(1));
@@ -205,7 +216,18 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
         return new FootPrintPresenter();
     }
 
-    @OnClick({R.id.btn_bind, R.id.tv_mine, R.id.iv_add, R.id.ll_all, R.id.tv_bottom_bind, R.id.tv_bottom_report,R.id.tv_selected})
+    @OnClick({
+            R.id.btn_bind,
+            R.id.tv_mine,
+            R.id.iv_add,
+            R.id.ll_all,
+            R.id.tv_bottom_bind,
+            R.id.tv_bottom_report,
+            R.id.tv_selected,
+            R.id.tv_save,
+            R.id.tv_remove,
+            R.id.tv_collect,
+            R.id.tv_report})
     protected void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_bind:
@@ -245,11 +267,23 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
             case R.id.tv_selected:
 
                 gridAdapter.changeSelected();
-                if(gridAdapter.isSelectMode){
-                    TypeSafer.text(tvSelected,"返回");
-                }else{
-                    TypeSafer.text(tvSelected,"选择");
+                if (gridAdapter.isSelectMode) {
+                    showSelectedMode();
+                } else {
+                    showGridMode();
                 }
+                break;
+            case R.id.tv_save:
+                presenter.saveImg(gridAdapter.getSelectedData());
+                break;
+            case R.id.tv_remove:
+                presenter.remove(gridAdapter.getSelectedData());
+                break;
+            case R.id.tv_collect:
+                presenter.collect(gridAdapter.getSelectedData());
+                break;
+            case R.id.tv_report:
+                presenter.report(gridAdapter.getSelectedData());
                 break;
             default:
                 break;
@@ -283,7 +317,7 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
     }
 
     @Override
-    public void showGridData(List<GridBean> datas) {
+    public void showGridData(List<RecordListData.RowsBean> datas) {
         gridBeans.clear();
         gridBeans.addAll(datas);
         gridAdapter.notifyDataSetChanged();
@@ -299,6 +333,28 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
     public void showAddBar() {
         llBottom.setVisibility(View.GONE);
         llAdd.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showSelectedMode() {
+
+        llSelect.setVisibility(View.VISIBLE);
+        llAdd.setVisibility(View.GONE);
+        llBottom.setVisibility(View.GONE);
+        TypeSafer.text(tvSelectCount, "已选择" + gridAdapter.getSelectedData().size() + "张");
+        TypeSafer.text(tvSelected, "返回");
+        radioGroup.setVisibility(View.GONE);
+        tvSelectCount.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showGridMode() {
+        llSelect.setVisibility(View.GONE);
+        llAdd.setVisibility(View.GONE);
+        llBottom.setVisibility(View.VISIBLE);
+        radioGroup.setVisibility(View.VISIBLE);
+        tvSelectCount.setVisibility(View.GONE);
+        TypeSafer.text(tvSelected, "选择");
     }
 
 

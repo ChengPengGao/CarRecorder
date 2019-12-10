@@ -33,6 +33,7 @@ public class CarRecorderApp extends Application {
     private void initConfig() {
         GlobalConfig.isLogined = SPUtil.getBoolean(GlobalConstants.IS_LOGIN,false);
         GlobalConfig.userId = SPUtil.getString(GlobalConstants.USER_ID);
+        GlobalConfig.userPhone = SPUtil.getString(GlobalConstants.USER_PHONE);
         GlobalConfig.isBinded = SPUtil.getBoolean(GlobalConstants.IS_BINDED,false);
     }
 }

@@ -49,6 +49,9 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
     @BindView(R.id.tv_profit)
     TextView tvProfit;
 
+    @BindView(R.id.tv_phone)
+    TextView tvPhone;
+
     public static MineFragment getInstance() {
         if (instance == null) {
             instance = new MineFragment();
@@ -61,9 +64,10 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
     protected void initView(View view) {
         showBottomBar();
 
-        DecimalFormat decimalFormat=new DecimalFormat(".00");
-        String p=decimalFormat.format(GlobalConfig.profit);
-        TypeSafer.text(tvProfit,p + "元");
+        DecimalFormat decimalFormat = new DecimalFormat(".00");
+        String p = decimalFormat.format(GlobalConfig.profit);
+        TypeSafer.text(tvProfit, p + "元");
+        TypeSafer.text(tvPhone, GlobalConfig.userPhone);
     }
 
     @Override
@@ -86,9 +90,12 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
         super.onEventMainThread(event);
         switch (event.getType()) {
             case CarRecorderEvent.ADD:
-                DecimalFormat decimalFormat=new DecimalFormat(".00");
-                String p=decimalFormat.format(GlobalConfig.profit);
-                TypeSafer.text(tvProfit,p + "元");
+                DecimalFormat decimalFormat = new DecimalFormat(".00");
+                String p = decimalFormat.format(GlobalConfig.profit);
+                TypeSafer.text(tvProfit, p + "元");
+                break;
+            case CarRecorderEvent.LOGIN:
+                TypeSafer.text(tvPhone, GlobalConfig.userPhone);
                 break;
             default:
                 break;

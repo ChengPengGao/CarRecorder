@@ -4,10 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.cf.carrecorder.bean.request.BindBean;
 import com.cf.carrecorder.bean.request.LoginBean;
 import com.cf.carrecorder.bean.request.ReceiveBean;
+import com.cf.carrecorder.bean.request.RecordListBean;
 import com.cf.carrecorder.bean.request.RegistBean;
 import com.cf.carrecorder.bean.request.SendCodeBean;
 import com.cf.carrecorder.utils.TypeSafer;
 
+import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -108,5 +110,16 @@ public class CarRecorderApi {
         String jsonString = JSON.toJSONString( receiveBean );
         RequestBody requestParams = RequestBody.create( MediaType.parse( "application/json" ), jsonString );
         return AppNetwordManager.getApiService().receive( requestParams );
+    }
+
+    public static Observable recordList(RecordListBean recordListBean,int pageNum,int pageSize){
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("pageNum",pageNum);
+        params.put("pageSize",pageSize);
+        params.put("orderByColumn","uploadTime");
+        params.put("isAsc","desc");
+        String jsonString = JSON.toJSONString( recordListBean );
+        RequestBody requestParams = RequestBody.create( MediaType.parse( "application/json" ), jsonString );
+        return AppNetwordManager.getApiService().recordList( requestParams ,params);
     }
 }

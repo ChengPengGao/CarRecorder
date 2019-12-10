@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             case CarRecorderEvent.LOGOUT:
                 FragmentSwitcher.replaceUnAddToBackStackFragment(LoginFragment.getInstance());
                 hideSoftInput();
+                FootPrintFragment.getInstance().showUnBindLayout();
                 break;
             default:
                 break;

@@ -18,6 +18,10 @@ public class GlobalConfig {
      * 当前登录的人员id
      */
     public static String userId = "";
+    /**
+     * 当前登录的人员手机号
+     */
+    public static String userPhone = "";
 
     public static float profit = 20.00f;
 }

@@ -2,6 +2,9 @@ package com.cf.carrecorder.net.api;
 
 import com.cf.carrecorder.bean.HttpResult;
 import com.cf.carrecorder.bean.LoginData;
+import com.cf.carrecorder.bean.RecordListData;
+
+import java.util.HashMap;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -10,6 +13,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.QueryMap;
 
 /**
  * @author chenxihu
@@ -55,4 +59,12 @@ public interface ApiService {
      */
     @POST("device/receive")
     Observable<HttpResult> receive(@Body RequestBody body);
+
+    /**
+     * 获取记录
+     * @param body
+     * @return
+     */
+    @POST("device/recordList")
+    Observable<HttpResult<RecordListData>> recordList(@Body RequestBody body, @QueryMap HashMap<String, Object> param);
 }

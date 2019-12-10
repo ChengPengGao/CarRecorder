@@ -59,6 +59,7 @@ public class LoginPresenter extends BaseFragmentPresenter {
                         if("0".equals(result.getCode())){
                             //登录成功
                             SyncUtil.setUserId(result.getData().getUserId());
+                            SyncUtil.setUserPhone(result.getData().getPhone());
                             EventBus.getDefault().post(new CarRecorderEvent(CarRecorderEvent.LOGIN));
                         }
 

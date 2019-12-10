@@ -16,6 +16,8 @@ public class CarRecorderEvent {
 
     public static final int ADD = 4;
 
+    public static final int SELECT = 5;
+
     /**
      * 用于表示操作码
      */
