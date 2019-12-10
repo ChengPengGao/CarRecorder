@@ -4,6 +4,8 @@ import android.view.View;
 
 import com.cf.carrecorder.R;
 import com.cf.carrecorder.base.fragment.BaseFragment;
+import com.cf.carrecorder.ui.mine.car.addcar.AddCarFragment;
+import com.cf.carrecorder.utils.FragmentSwitcher;
 
 import butterknife.OnClick;
 
@@ -38,8 +40,17 @@ public class CarFragment  extends BaseFragment<CarView,CarPresenter> implements 
         return new CarPresenter();
     }
 
-    @OnClick(R.id.iv_back)
+    @OnClick({R.id.iv_back,R.id.tv_add})
     public void onClick(View view) {
-        back();
+        switch (view.getId()){
+            case R.id.iv_back:
+                back();
+                break;
+            case R.id.tv_add:
+                FragmentSwitcher.replaceFragment(AddCarFragment.getInstance());
+                break;
+                default:
+                    break;
+        }
     }
 }

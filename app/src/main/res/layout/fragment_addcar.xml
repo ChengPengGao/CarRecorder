@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="66dp">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:clickable="true"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="车辆信息"
+            android:textColor="@color/black"
+            android:textSize="22dp" />
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray" />
+
+    <TextView
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:gravity="left"
+        android:layout_height="wrap_content"
+        android:text="上传车辆照片（可上传多张，车牌需清晰可见）"/>
+    <com.goyourfly.multi_picture.MultiPictureView
+        android:id="@+id/mpv_car"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:editable="true"
+        app:addDrawable="@drawable/img_add"
+        app:imageLayoutMode="STATIC"
+        app:max="9"
+        app:ratio="1"
+        app:space="6dp"
+        app:span="3" />
+
+    <TextView
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:gravity="left"
+        android:layout_height="wrap_content"
+        android:text="上传行驶证照片（车牌需清晰可见）"/>
+    <com.goyourfly.multi_picture.MultiPictureView
+        android:id="@+id/mpv_drivingLicense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:editable="true"
+        app:addDrawable="@drawable/img_add"
+        app:imageLayoutMode="STATIC"
+        app:max="2"
+        app:ratio="1"
+        app:space="6dp"
+        app:span="3" />
+
+    <TextView
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:gravity="left"
+        android:layout_height="wrap_content"
+        android:text="上传驾驶证照片"/>
+
+    <com.goyourfly.multi_picture.MultiPictureView
+        android:id="@+id/mpv_driverLicense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:editable="true"
+        app:addDrawable="@drawable/img_add"
+        app:imageLayoutMode="STATIC"
+        app:max="2"
+        app:ratio="1"
+        app:space="6dp"
+        app:span="3" />
+
+
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_height="wrap_content"
+        android:text="保存"
+        android:background="@drawable/sp_btn_mine"/>
+</LinearLayout>
