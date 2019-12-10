@@ -226,8 +226,7 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
             R.id.tv_selected,
             R.id.tv_save,
             R.id.tv_remove,
-            R.id.tv_collect,
-            R.id.tv_report})
+            R.id.tv_collect})
     protected void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_bind:
@@ -281,9 +280,6 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
                 break;
             case R.id.tv_collect:
                 presenter.collect(gridAdapter.getSelectedData());
-                break;
-            case R.id.tv_report:
-                presenter.report(gridAdapter.getSelectedData());
                 break;
             default:
                 break;

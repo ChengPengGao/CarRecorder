@@ -145,10 +145,4 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
         }
     }
 
-    public void report(List<RecordListData.RowsBean> selectedData) {
-        if (ListUtil.isEmpty(selectedData)) {
-            ToastUtil.show("请选择");
-            return;
-        }
-    }
 }
