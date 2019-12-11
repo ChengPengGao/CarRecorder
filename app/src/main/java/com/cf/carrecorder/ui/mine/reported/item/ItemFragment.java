@@ -10,6 +10,7 @@ import com.cf.carrecorder.adapter.reported.ReportedAdapter;
 import com.cf.carrecorder.base.fragment.BaseFragment;
 import com.cf.carrecorder.bean.ReportListData;
 import com.cf.carrecorder.bean.ReportedBean;
+import com.cf.carrecorder.event.CarRecorderEvent;
 import com.cf.carrecorder.utils.SpacesItemDecoration;
 
 import java.util.ArrayList;
@@ -37,11 +38,9 @@ public class ItemFragment extends BaseFragment<ItemView,ItemPresenter> implement
 
     List<ReportListData.RowsBean> datas;
 
-    private int count;
     private int type;
 
-    public ItemFragment(int type,int count) {
-        this.count = count;
+    public ItemFragment(int type) {
         this.type = type;
     }
 
@@ -52,7 +51,18 @@ public class ItemFragment extends BaseFragment<ItemView,ItemPresenter> implement
         rv.setAdapter(adapter);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.addItemDecoration(new SpacesItemDecoration(1));
-        presenter.loadReportedData(type,count);
+        presenter.loadReportedData(type);
+    }
+
+
+    @Override
+    public void onEventMainThread(CarRecorderEvent event) {
+        super.onEventMainThread(event);
+        switch (event.getType()){
+            case CarRecorderEvent.REPORT:
+                presenter.loadReportedData(type);
+                break;
+        }
     }
 
     @Override

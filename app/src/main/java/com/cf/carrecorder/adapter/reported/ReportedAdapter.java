@@ -19,7 +19,7 @@ import java.util.List;
  **/
 public class ReportedAdapter extends BaseQuickAdapter<ReportListData.RowsBean, BaseViewHolder> {
 
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public ReportedAdapter(@Nullable List<ReportListData.RowsBean> data) {
         super(R.layout.item_item, data);

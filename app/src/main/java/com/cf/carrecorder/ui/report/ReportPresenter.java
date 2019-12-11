@@ -11,9 +11,12 @@ import com.cf.carrecorder.bean.HttpResult;
 import com.cf.carrecorder.bean.RxSubscriber;
 import com.cf.carrecorder.bean.request.ReportBean;
 import com.cf.carrecorder.config.GlobalConfig;
+import com.cf.carrecorder.event.CarRecorderEvent;
 import com.cf.carrecorder.net.api.CarRecorderApi;
 import com.cf.carrecorder.utils.ListUtil;
 import com.cf.carrecorder.utils.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,6 +105,7 @@ public class ReportPresenter extends BaseFragmentPresenter {
                 .subscribe(new RxSubscriber<HttpResult>() {
                     @Override
                     protected void onSuccess(HttpResult result) {
+                        EventBus.getDefault().post(new CarRecorderEvent(CarRecorderEvent.REPORT));
                         ToastUtil.show(result.getMsg());
                     }
 

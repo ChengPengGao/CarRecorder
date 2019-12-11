@@ -34,7 +34,7 @@ public class ItemPresenter extends BaseFragmentPresenter {
         this.v = (ItemView) frgView;
     }
 
-    public void loadReportedData(int type,int count) {
+    public void loadReportedData(int type) {
 
         ReportListBean reportListBean = new ReportListBean();
         reportListBean.setUserId(GlobalConfig.userId);

@@ -18,6 +18,8 @@ public class CarRecorderEvent {
 
     public static final int SELECT = 5;
 
+    public static final int REPORT = 6;
+
     /**
      * 用于表示操作码
      */
