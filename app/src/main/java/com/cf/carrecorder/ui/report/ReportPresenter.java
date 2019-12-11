@@ -2,6 +2,7 @@ package com.cf.carrecorder.ui.report;
 
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.cf.carrecorder.base.fragment.BaseFragmentPresenter;
@@ -9,10 +10,12 @@ import com.cf.carrecorder.base.fragment.BaseFragmentView;
 import com.cf.carrecorder.bean.HttpResult;
 import com.cf.carrecorder.bean.RxSubscriber;
 import com.cf.carrecorder.bean.request.ReportBean;
+import com.cf.carrecorder.config.GlobalConfig;
 import com.cf.carrecorder.net.api.CarRecorderApi;
 import com.cf.carrecorder.utils.ListUtil;
 import com.cf.carrecorder.utils.ToastUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -86,6 +89,11 @@ public class ReportPresenter extends BaseFragmentPresenter {
         reportBean.setReportIdcard(reportIdCard);
         reportBean.setReportPhone(reportPhone);
         reportBean.setReportType(2);
+        reportBean.setUserId(GlobalConfig.userId);
+        Log.i("asd",GlobalConfig.userId + "/");
+        List<String> photoList = new ArrayList<>();
+        photoList.add("http://img4.imgtn.bdimg.com/it/u=1544922432,3408838646&fm=26&gp=0.jpg");
+        reportBean.setPhotoList(photoList);
 
         CarRecorderApi.report(reportBean)
                 .subscribeOn(Schedulers.from(CarRecorderApi.service))

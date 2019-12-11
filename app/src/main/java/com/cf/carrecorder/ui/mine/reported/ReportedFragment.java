@@ -51,10 +51,10 @@ public class ReportedFragment extends BaseFragment<ReportedView, ReportedPresent
         titles.add("审核失败");
 
         List<ItemFragment> fragments = new ArrayList<>();
-        fragments.add(new ItemFragment("全部",3));
-        fragments.add(new ItemFragment("待审核",4));
-        fragments.add(new ItemFragment("审核成功",2));
-        fragments.add(new ItemFragment("审核失败",1));
+        fragments.add(new ItemFragment(ItemFragment.REPORT_ALL,3));
+        fragments.add(new ItemFragment(ItemFragment.REPORT_WAIT,4));
+        fragments.add(new ItemFragment(ItemFragment.REPORT_SUCCESS,2));
+        fragments.add(new ItemFragment(ItemFragment.REPORT_FAILED,1));
         adapter = new ReportedFragmentAdapter(getActivity().getSupportFragmentManager(), fragments, titles);
         vp.setAdapter(adapter);
         tabLayout.setupWithViewPager(vp);

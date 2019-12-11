@@ -59,7 +59,7 @@ public class ReportBean {
     /**
      * 用户id
      */
-    private int userId;
+    private String userId;
 
     public String getCarNo() {
         return carNo;
@@ -157,11 +157,11 @@ public class ReportBean {
         this.reportPhone = reportPhone;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 }

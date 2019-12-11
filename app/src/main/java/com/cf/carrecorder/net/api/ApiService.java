@@ -3,6 +3,7 @@ package com.cf.carrecorder.net.api;
 import com.cf.carrecorder.bean.HttpResult;
 import com.cf.carrecorder.bean.LoginData;
 import com.cf.carrecorder.bean.RecordListData;
+import com.cf.carrecorder.bean.ReportListData;
 
 import java.util.HashMap;
 
@@ -75,4 +76,13 @@ public interface ApiService {
      */
     @POST("app/report")
     Observable<HttpResult> report(@Body RequestBody body);
+
+    /**
+     * 获取违章记录
+     * @param body
+     * @param param
+     * @return
+     */
+    @POST("app/reportList")
+    Observable<String> reportList(@Body RequestBody body, @QueryMap HashMap<String, Object> param);
 }

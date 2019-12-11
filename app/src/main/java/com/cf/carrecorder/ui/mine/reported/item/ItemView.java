@@ -1,6 +1,7 @@
 package com.cf.carrecorder.ui.mine.reported.item;
 
 import com.cf.carrecorder.base.fragment.BaseFragmentView;
+import com.cf.carrecorder.bean.ReportListData;
 import com.cf.carrecorder.bean.ReportedBean;
 
 import java.util.List;
@@ -11,5 +12,5 @@ import java.util.List;
  * @email androidhcx@163.com
  **/
 public interface ItemView extends BaseFragmentView {
-    void showReportedData(List<ReportedBean> datas);
+    void showReportedData( List<ReportListData.RowsBean> datas);
 }

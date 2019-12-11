@@ -8,6 +8,7 @@ import com.cf.carrecorder.bean.request.ReceiveBean;
 import com.cf.carrecorder.bean.request.RecordListBean;
 import com.cf.carrecorder.bean.request.RegistBean;
 import com.cf.carrecorder.bean.request.ReportBean;
+import com.cf.carrecorder.bean.request.ReportListBean;
 import com.cf.carrecorder.bean.request.SendCodeBean;
 import com.cf.carrecorder.utils.TypeSafer;
 
@@ -143,5 +144,22 @@ public class CarRecorderApi {
         String jsonString = JSON.toJSONString(reportBean);
         RequestBody requestParams = RequestBody.create(MediaType.parse("application/json"), jsonString);
         return AppNetwordManager.getApiService().report(requestParams);
+    }
+
+    /**
+     * 获取违章记录
+     * @param reportListBean
+     * @return
+     */
+    public static Observable reportList(ReportListBean reportListBean){
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("pageNum", 0);
+        params.put("pageSize", 10);
+        params.put("orderByColumn", "reportTime");
+        params.put("isAsc", "desc");
+
+        String jsonString = JSON.toJSONString(reportListBean);
+        RequestBody requestParams = RequestBody.create(MediaType.parse("application/json"), jsonString);
+        return AppNetwordManager.getApiService().reportList(requestParams, params);
     }
 }

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cf.carrecorder.R;
 import com.cf.carrecorder.adapter.reported.ReportedAdapter;
 import com.cf.carrecorder.base.fragment.BaseFragment;
+import com.cf.carrecorder.bean.ReportListData;
 import com.cf.carrecorder.bean.ReportedBean;
 import com.cf.carrecorder.utils.SpacesItemDecoration;
 
@@ -23,17 +24,23 @@ import butterknife.BindView;
  **/
 public class ItemFragment extends BaseFragment<ItemView,ItemPresenter> implements ItemView {
 
+
+    public static  final int REPORT_ALL = -1;
+    public static  final int REPORT_WAIT = 0;
+    public static  final int REPORT_SUCCESS = 1;
+    public static  final int REPORT_FAILED = 2;
+
     @BindView(R.id.rv)
     RecyclerView rv;
 
     ReportedAdapter adapter;
 
-    List<ReportedBean> datas;
+    List<ReportListData.RowsBean> datas;
 
     private int count;
-    private String type;
+    private int type;
 
-    public ItemFragment(String type,int count) {
+    public ItemFragment(int type,int count) {
         this.count = count;
         this.type = type;
     }
@@ -59,7 +66,7 @@ public class ItemFragment extends BaseFragment<ItemView,ItemPresenter> implement
     }
 
     @Override
-    public void showReportedData(List<ReportedBean> reportedBeans) {
+    public void showReportedData(List<ReportListData.RowsBean> reportedBeans) {
         datas.clear();
         datas.addAll(reportedBeans);
         adapter.notifyDataSetChanged();
