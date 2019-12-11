@@ -154,7 +154,7 @@ public class CarRecorderApi {
     public static Observable reportList(ReportListBean reportListBean){
         HashMap<String, Object> params = new HashMap<>();
         params.put("pageNum", 0);
-        params.put("pageSize", 10);
+        params.put("pageSize", 50);
         params.put("orderByColumn", "reportTime");
         params.put("isAsc", "desc");
 

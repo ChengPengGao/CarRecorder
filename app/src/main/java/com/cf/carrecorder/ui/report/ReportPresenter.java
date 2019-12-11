@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.EditText;
 
+import com.cf.carrecorder.app.CarRecorderContext;
 import com.cf.carrecorder.base.fragment.BaseFragmentPresenter;
 import com.cf.carrecorder.base.fragment.BaseFragmentView;
 import com.cf.carrecorder.bean.HttpResult;
@@ -13,8 +14,10 @@ import com.cf.carrecorder.bean.request.ReportBean;
 import com.cf.carrecorder.config.GlobalConfig;
 import com.cf.carrecorder.event.CarRecorderEvent;
 import com.cf.carrecorder.net.api.CarRecorderApi;
+import com.cf.carrecorder.utils.BitmapUtil;
 import com.cf.carrecorder.utils.ListUtil;
 import com.cf.carrecorder.utils.ToastUtil;
+import com.cf.carrecorder.utils.UploadPic;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -93,10 +96,16 @@ public class ReportPresenter extends BaseFragmentPresenter {
         reportBean.setReportPhone(reportPhone);
         reportBean.setReportType(2);
         reportBean.setUserId(GlobalConfig.userId);
-        Log.i("asd",GlobalConfig.userId + "/");
         List<String> photoList = new ArrayList<>();
-        photoList.add("http://img4.imgtn.bdimg.com/it/u=1544922432,3408838646&fm=26&gp=0.jpg");
+
+        for(int i = 0;i<pics.size();i++){
+            photoList.add(UploadPic.uploadImage(BitmapUtil.getRealPathFromUri(CarRecorderContext.context,pics.get(i))));
+        }
+
         reportBean.setPhotoList(photoList);
+
+
+        Log.i("report photo",photoList.toString());
 
         CarRecorderApi.report(reportBean)
                 .subscribeOn(Schedulers.from(CarRecorderApi.service))
