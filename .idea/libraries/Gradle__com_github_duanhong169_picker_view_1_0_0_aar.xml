@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.duanhong169:picker-view:1.0.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ce923aa388ba70317a1903063425f660/picker-view-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ce923aa388ba70317a1903063425f660/picker-view-1.0.0/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.duanhong169/picker-view/1.0.0/78416272575d02afa230b302098fc308b8adb39e/picker-view-1.0.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.duanhong169/picker-view/1.0.0/fee2e38df2404c138e622d5e589be0d76156943c/picker-view-1.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

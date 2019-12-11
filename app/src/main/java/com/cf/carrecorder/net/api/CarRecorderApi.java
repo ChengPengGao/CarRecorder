@@ -1,11 +1,13 @@
 package com.cf.carrecorder.net.api;
 
 import com.alibaba.fastjson.JSON;
+import com.cf.carrecorder.bean.ReportedBean;
 import com.cf.carrecorder.bean.request.BindBean;
 import com.cf.carrecorder.bean.request.LoginBean;
 import com.cf.carrecorder.bean.request.ReceiveBean;
 import com.cf.carrecorder.bean.request.RecordListBean;
 import com.cf.carrecorder.bean.request.RegistBean;
+import com.cf.carrecorder.bean.request.ReportBean;
 import com.cf.carrecorder.bean.request.SendCodeBean;
 import com.cf.carrecorder.utils.TypeSafer;
 
@@ -25,11 +27,11 @@ import okhttp3.RequestBody;
  * @email androidhcx@163.com
  **/
 public class CarRecorderApi {
-    public static ExecutorService service = new ThreadPoolExecutor( 0, Integer.MAX_VALUE, 10, TimeUnit.SECONDS, new SynchronousQueue<>(), r -> {
-        Thread thread = new Thread( r );
-        thread.setName( "CarRecorderApiThread" );
+    public static ExecutorService service = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 10, TimeUnit.SECONDS, new SynchronousQueue<>(), r -> {
+        Thread thread = new Thread(r);
+        thread.setName("CarRecorderApiThread");
         return thread;
-    } );
+    });
 
     /**
      * 发送验证码
@@ -39,10 +41,10 @@ public class CarRecorderApi {
      */
     public static Observable sendCode(String phone) {
         SendCodeBean sendCodeBean = new SendCodeBean();
-        sendCodeBean.setPhone( phone );
-        String jsonString = JSON.toJSONString( sendCodeBean );
-        RequestBody requestParams = RequestBody.create( MediaType.parse( "application/json" ), jsonString );
-        return AppNetwordManager.getApiService().sendCode( requestParams );
+        sendCodeBean.setPhone(phone);
+        String jsonString = JSON.toJSONString(sendCodeBean);
+        RequestBody requestParams = RequestBody.create(MediaType.parse("application/json"), jsonString);
+        return AppNetwordManager.getApiService().sendCode(requestParams);
     }
 
     /**
@@ -56,13 +58,13 @@ public class CarRecorderApi {
     public static Observable register(String userName, String password, String phone, String captcha) {
 
         RegistBean registBean = new RegistBean();
-        registBean.setUserName( userName );
-        registBean.setPassword( password );
-        registBean.setPhone( phone );
-        registBean.setCaptcha( captcha );
-        String jsonString = JSON.toJSONString( registBean );
-        RequestBody requestParams = RequestBody.create( MediaType.parse( "application/json" ), jsonString );
-        return AppNetwordManager.getApiService().register( requestParams );
+        registBean.setUserName(userName);
+        registBean.setPassword(password);
+        registBean.setPhone(phone);
+        registBean.setCaptcha(captcha);
+        String jsonString = JSON.toJSONString(registBean);
+        RequestBody requestParams = RequestBody.create(MediaType.parse("application/json"), jsonString);
+        return AppNetwordManager.getApiService().register(requestParams);
     }
 
     /**
@@ -74,11 +76,11 @@ public class CarRecorderApi {
      */
     public static Observable login(String phone, String password) {
         LoginBean loginBean = new LoginBean();
-        loginBean.setPhone( phone );
-        loginBean.setPassword( password );
-        String jsonString = JSON.toJSONString( loginBean );
-        RequestBody requestParams = RequestBody.create( MediaType.parse( "application/json" ), jsonString );
-        return AppNetwordManager.getApiService().login( requestParams );
+        loginBean.setPhone(phone);
+        loginBean.setPassword(password);
+        String jsonString = JSON.toJSONString(loginBean);
+        RequestBody requestParams = RequestBody.create(MediaType.parse("application/json"), jsonString);
+        return AppNetwordManager.getApiService().login(requestParams);
 
     }
 
@@ -91,13 +93,13 @@ public class CarRecorderApi {
      */
     public static Observable bind(String userId, String deviceNo, String deviceAlias, String devCode) {
         BindBean bindBean = new BindBean();
-        bindBean.setUserId( TypeSafer.parseInt( userId ) );
-        bindBean.setDeviceNo( deviceNo );
-        bindBean.setDeviceAlias( deviceAlias );
-        bindBean.setDevCode( devCode );
-        String jsonString = JSON.toJSONString( bindBean );
-        RequestBody requestParams = RequestBody.create( MediaType.parse( "application/json" ), jsonString );
-        return AppNetwordManager.getApiService().bind( requestParams );
+        bindBean.setUserId(TypeSafer.parseInt(userId));
+        bindBean.setDeviceNo(deviceNo);
+        bindBean.setDeviceAlias(deviceAlias);
+        bindBean.setDevCode(devCode);
+        String jsonString = JSON.toJSONString(bindBean);
+        RequestBody requestParams = RequestBody.create(MediaType.parse("application/json"), jsonString);
+        return AppNetwordManager.getApiService().bind(requestParams);
     }
 
     /**
@@ -107,19 +109,39 @@ public class CarRecorderApi {
      * @return
      */
     public static Observable receive(ReceiveBean receiveBean) {
-        String jsonString = JSON.toJSONString( receiveBean );
-        RequestBody requestParams = RequestBody.create( MediaType.parse( "application/json" ), jsonString );
-        return AppNetwordManager.getApiService().receive( requestParams );
+        String jsonString = JSON.toJSONString(receiveBean);
+        RequestBody requestParams = RequestBody.create(MediaType.parse("application/json"), jsonString);
+        return AppNetwordManager.getApiService().receive(requestParams);
     }
 
-    public static Observable recordList(RecordListBean recordListBean,int pageNum,int pageSize){
+    /**
+     * 获取记录
+     *
+     * @param recordListBean
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public static Observable recordList(RecordListBean recordListBean, int pageNum, int pageSize) {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("pageNum",pageNum);
-        params.put("pageSize",pageSize);
-        params.put("orderByColumn","uploadTime");
-        params.put("isAsc","desc");
-        String jsonString = JSON.toJSONString( recordListBean );
-        RequestBody requestParams = RequestBody.create( MediaType.parse( "application/json" ), jsonString );
-        return AppNetwordManager.getApiService().recordList( requestParams ,params);
+        params.put("pageNum", pageNum);
+        params.put("pageSize", pageSize);
+        params.put("orderByColumn", "uploadTime");
+        params.put("isAsc", "desc");
+        String jsonString = JSON.toJSONString(recordListBean);
+        RequestBody requestParams = RequestBody.create(MediaType.parse("application/json"), jsonString);
+        return AppNetwordManager.getApiService().recordList(requestParams, params);
+    }
+
+    /**
+     * 上传违章记录
+     *
+     * @param reportBean
+     * @return
+     */
+    public static Observable report(ReportBean reportBean) {
+        String jsonString = JSON.toJSONString(reportBean);
+        RequestBody requestParams = RequestBody.create(MediaType.parse("application/json"), jsonString);
+        return AppNetwordManager.getApiService().report(requestParams);
     }
 }

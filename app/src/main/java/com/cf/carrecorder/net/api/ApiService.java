@@ -67,4 +67,12 @@ public interface ApiService {
      */
     @POST("device/recordList")
     Observable<HttpResult<RecordListData>> recordList(@Body RequestBody body, @QueryMap HashMap<String, Object> param);
+
+    /**
+     * 上传违章记录
+     * @param body
+     * @return
+     */
+    @POST("app/report")
+    Observable<HttpResult> report(@Body RequestBody body);
 }

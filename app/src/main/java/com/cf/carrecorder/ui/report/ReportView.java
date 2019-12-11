@@ -8,4 +8,5 @@ import com.cf.carrecorder.base.fragment.BaseFragmentView;
  * @email androidhcx@163.com
  **/
 public interface ReportView extends BaseFragmentView {
+    void hideAllPickView();
 }
