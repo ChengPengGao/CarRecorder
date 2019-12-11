@@ -60,6 +60,14 @@ public class LoginPresenter extends BaseFragmentPresenter {
                             //登录成功
                             SyncUtil.setUserId(result.getData().getUserId());
                             SyncUtil.setUserPhone(result.getData().getPhone());
+                            if(result.getData().getDeviceNo() != null && result.getData().getDeviceNo().length > 0){
+                                Log.i("load login","showBind");
+                                SyncUtil.setIsBinded(true);
+                                EventBus.getDefault().post(new CarRecorderEvent(CarRecorderEvent.BIND));
+                            }else{
+                                SyncUtil.setIsBinded(false);
+                                Log.i("load login","showUnbind");
+                            }
                             EventBus.getDefault().post(new CarRecorderEvent(CarRecorderEvent.LOGIN));
                         }
 

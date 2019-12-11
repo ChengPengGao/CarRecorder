@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         scheduledExecutorService.scheduleAtFixedRate(() -> {
             GlobalConfig.profit += 0.05f;
             EventBus.getDefault().post(new CarRecorderEvent(CarRecorderEvent.ADD));
-        },0,2,TimeUnit.MINUTES);
+        }, 0, 2, TimeUnit.MINUTES);
 
     }
 
@@ -68,6 +68,10 @@ public class MainActivity extends AppCompatActivity {
                 FragmentSwitcher.replaceUnAddToBackStackFragment(LoginFragment.getInstance());
                 hideSoftInput();
                 FootPrintFragment.getInstance().showUnBindLayout();
+                break;
+            case CarRecorderEvent.BIND:
+                hideSoftInput();
+                FootPrintFragment.getInstance().showBindLayout();
                 break;
             default:
                 break;

@@ -17,6 +17,7 @@ public class LoginData {
     private String delFlag;
     private String remark;
     private String loginCount;
+    private String[] deviceNo;
 
     public String getUserId() {
         return userId;
@@ -104,5 +105,13 @@ public class LoginData {
 
     public void setLoginCount(String loginCount) {
         this.loginCount = loginCount;
+    }
+
+    public String[] getDeviceNo() {
+        return deviceNo;
+    }
+
+    public void setDeviceNo(String[] deviceNo) {
+        this.deviceNo = deviceNo;
     }
 }
