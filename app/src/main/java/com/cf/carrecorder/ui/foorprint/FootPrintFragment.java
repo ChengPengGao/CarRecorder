@@ -1,10 +1,9 @@
 package com.cf.carrecorder.ui.foorprint;
 
-import android.graphics.BitmapFactory;
+import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +23,11 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.bumptech.glide.Glide;
 import com.cf.carrecorder.R;
 import com.cf.carrecorder.adapter.grid.GirdAdapter;
+import com.cf.carrecorder.adapter.grid.InfoWinAdapter;
 import com.cf.carrecorder.base.fragment.BaseFragment;
-import com.cf.carrecorder.bean.GridBean;
 import com.cf.carrecorder.bean.RecordListData;
 import com.cf.carrecorder.config.GlobalConfig;
 import com.cf.carrecorder.event.CarRecorderEvent;
@@ -35,6 +35,7 @@ import com.cf.carrecorder.ui.bind.DeviceBindFragment;
 import com.cf.carrecorder.ui.login.LoginFragment;
 import com.cf.carrecorder.ui.mine.MineFragment;
 import com.cf.carrecorder.ui.report.ReportFragment;
+import com.cf.carrecorder.ui.showinfo.ShowInfoFragment;
 import com.cf.carrecorder.utils.FragmentSwitcher;
 import com.cf.carrecorder.utils.SpacesItemDecoration;
 import com.cf.carrecorder.utils.ToastUtil;
@@ -45,9 +46,9 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import butterknife.BindView;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
@@ -59,13 +60,16 @@ import static com.amap.api.maps.model.MyLocationStyle.LOCATION_TYPE_LOCATION_ROT
  * @date 2019-11-18
  * @email androidhcx@163.com
  **/
-public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPresenter> implements FootPrintView {
+public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPresenter> implements FootPrintView, AMap.OnMarkerClickListener {
 
     private static FootPrintFragment instance;
     private AMap aMap;
     private Marker mStartMarker;
     private Marker mEndMarker;
     private UiSettings uiSettings;
+    private View infoWindow = null;
+    private AppCompatImageView iv_info;
+    private InfoWinAdapter adapter;
     /**
      * 未绑定的布局
      */
@@ -114,8 +118,8 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
-        mMapView.onCreate(savedInstanceState);
+        View view = super.onCreateView( inflater, container, savedInstanceState );
+        mMapView.onCreate( savedInstanceState );
         aMap = mMapView.getMap();
         initMapView();
         return view;
@@ -123,7 +127,7 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
 
     @Override
     public void onEventMainThread(CarRecorderEvent event) {
-        super.onEventMainThread(event);
+        super.onEventMainThread( event );
 
         switch (event.getType()) {
             case CarRecorderEvent.BIND:
@@ -131,14 +135,14 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
 
 
                 gridBeans = new ArrayList<>();
-                gridAdapter = new GirdAdapter(gridBeans, getActivity());
-                rvGrid.setAdapter(gridAdapter);
-                rvGrid.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-                rvGrid.addItemDecoration(new SpacesItemDecoration(3));
+                gridAdapter = new GirdAdapter( gridBeans, getActivity() );
+                rvGrid.setAdapter( gridAdapter );
+                rvGrid.setLayoutManager( new GridLayoutManager( getActivity(), 4 ) );
+                rvGrid.addItemDecoration( new SpacesItemDecoration( 3 ) );
                 presenter.loadGridData();
                 break;
             case CarRecorderEvent.SELECT:
-                TypeSafer.text(tvSelectCount, "已选择" + gridAdapter.getSelectedData().size() + "张");
+                TypeSafer.text( tvSelectCount, "已选择" + gridAdapter.getSelectedData().size() + "张" );
                 break;
             default:
                 break;
@@ -152,10 +156,10 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
             showBottomBar();
 
             gridBeans = new ArrayList<>();
-            gridAdapter = new GirdAdapter(gridBeans, getActivity());
-            rvGrid.setAdapter(gridAdapter);
-            rvGrid.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-            rvGrid.addItemDecoration(new SpacesItemDecoration(1));
+            gridAdapter = new GirdAdapter( gridBeans, getActivity() );
+            rvGrid.setAdapter( gridAdapter );
+            rvGrid.setLayoutManager( new GridLayoutManager( getActivity(), 4 ) );
+            rvGrid.addItemDecoration( new SpacesItemDecoration( 1 ) );
             presenter.loadGridData();
         } else {
             showUnBindLayout();
@@ -170,10 +174,25 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
      * @param v
      * @param h
      */
-    public void drawMaker(double v, double h) {
-        LatLng latLng = new LatLng(v, h);
-        mStartMarker = aMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.start))));
-        mStartMarker.setPosition(latLng);
+    public void drawMaker(double v, double h, String id) {
+        LatLng latLng = new LatLng( v, h );
+        mStartMarker = aMap.addMarker( new MarkerOptions().icon( BitmapDescriptorFactory.fromView( getBitmapView( getActivity(), id ) ) ) );
+        mStartMarker.setPosition( latLng );
+    }
+
+    /**
+     * 设置图片
+     *
+     * @param context
+     * @param photoUrl
+     * @return
+     */
+    public static View getBitmapView(Context context, String photoUrl) {
+        LayoutInflater factory = LayoutInflater.from( context );
+        View view = factory.inflate( R.layout.item_map_infowindows, null );
+        AppCompatImageView imageView = view.findViewById( R.id.iv_info_window );
+        Glide.with( context ).load( photoUrl ).error( R.mipmap.icon_log ).fallback( R.mipmap.icon_log ).into( imageView );
+        return view;
     }
 
     /**
@@ -181,29 +200,50 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
      */
     private void initMapView() {
         MyLocationStyle myLocationStyle = new MyLocationStyle();
-        myLocationStyle.interval(2000);
-        myLocationStyle.myLocationType(LOCATION_TYPE_LOCATION_ROTATE_NO_CENTER);
-        myLocationStyle.strokeColor(Color.TRANSPARENT);
-        myLocationStyle.radiusFillColor(Color.TRANSPARENT);
-        aMap.setOnMyLocationChangeListener(new AMap.OnMyLocationChangeListener() {
+        myLocationStyle.interval( 2000 );
+        myLocationStyle.myLocationType( LOCATION_TYPE_LOCATION_ROTATE_NO_CENTER );
+        myLocationStyle.strokeColor( Color.TRANSPARENT );
+        myLocationStyle.radiusFillColor( Color.TRANSPARENT );
+        aMap.setOnMyLocationChangeListener( new AMap.OnMyLocationChangeListener() {
             @Override
             public void onMyLocationChange(Location location) {
                 if (location != null) {
 
                 }
             }
-        });
-        myLocationStyle.showMyLocation(false);
-        aMap.setMyLocationStyle(myLocationStyle);
-        aMap.setMyLocationEnabled(true);
-        aMap.setMapType(AMap.MAP_TYPE_NORMAL);
+        } );
+        myLocationStyle.showMyLocation( false );
+        aMap.setMyLocationStyle( myLocationStyle );
+        aMap.setMyLocationEnabled( true );
+        aMap.setMapType( AMap.MAP_TYPE_NORMAL );
         uiSettings = aMap.getUiSettings();
         //缩放按钮
-        uiSettings.setZoomControlsEnabled(false);
-        uiSettings.setLogoBottomMargin(-200);
-        drawMaker(30.244239, 120.184250);
-        CameraUpdate mCameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(new LatLng(30.244239, 120.184250), 18, 30, 0));
-        aMap.moveCamera(mCameraUpdate);
+        uiSettings.setZoomControlsEnabled( false );
+        uiSettings.setLogoBottomMargin( -200 );
+        aMap.setOnMarkerClickListener( this );
+        adapter = new InfoWinAdapter( getActivity() );
+        adapter.setOnItemButtonClick( new InfoWinAdapter.OnItemButtonClick() {
+            @Override
+            public boolean onButtonClick(View view) {
+                ToastUtil.show( "View" );
+                return false;
+            }
+        } );
+        aMap.setInfoWindowAdapter( adapter );
+        CameraUpdate mCameraUpdate = CameraUpdateFactory.newCameraPosition( new CameraPosition( new LatLng( 30.244239, 120.184250 ), 18, 30, 0 ) );
+        aMap.moveCamera( mCameraUpdate );
+        setInfoWindow( gridBeans );
+    }
+
+    /**
+     * 设置去过的地方
+     */
+    public void setInfoWindow(List<RecordListData.RowsBean> beans) {
+        if (beans != null) {
+            drawMaker( 30.244239, 120.184250, "" );
+            drawMaker( 30.321842, 120.171429, "" );
+            drawMaker( 30.167616, 120.227734, "'" );
+        }
     }
 
     @Override
@@ -231,16 +271,16 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
         switch (v.getId()) {
             case R.id.btn_bind:
                 if (!GlobalConfig.isLogined) {
-                    ToastUtil.show("请先登录");
+                    ToastUtil.show( "请先登录" );
                     return;
                 }
-                FragmentSwitcher.replaceFragment(DeviceBindFragment.getInstance());
+                FragmentSwitcher.replaceFragment( DeviceBindFragment.getInstance() );
                 break;
             case R.id.tv_mine:
                 if (GlobalConfig.isLogined) {
-                    FragmentSwitcher.replaceUnAddToBackStackFragment(MineFragment.getInstance());
+                    FragmentSwitcher.replaceUnAddToBackStackFragment( MineFragment.getInstance() );
                 } else {
-                    FragmentSwitcher.replaceUnAddToBackStackFragment(LoginFragment.getInstance());
+                    FragmentSwitcher.replaceUnAddToBackStackFragment( LoginFragment.getInstance() );
                 }
                 break;
             case R.id.iv_add:
@@ -251,17 +291,17 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
                 break;
             case R.id.tv_bottom_report:
                 if (!GlobalConfig.isLogined) {
-                    ToastUtil.show("请先登录");
+                    ToastUtil.show( "请先登录" );
                     return;
                 }
-                FragmentSwitcher.replaceFragment(ReportFragment.getInstance());
+                FragmentSwitcher.replaceFragment( ReportFragment.getInstance() );
                 break;
             case R.id.tv_bottom_bind:
                 if (!GlobalConfig.isLogined) {
-                    ToastUtil.show("请先登录");
+                    ToastUtil.show( "请先登录" );
                     return;
                 }
-                FragmentSwitcher.replaceFragment(DeviceBindFragment.getInstance());
+                FragmentSwitcher.replaceFragment( DeviceBindFragment.getInstance() );
                 break;
             case R.id.tv_selected:
 
@@ -273,13 +313,13 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
                 }
                 break;
             case R.id.tv_save:
-                presenter.saveImg(gridAdapter.getSelectedData());
+                presenter.saveImg( gridAdapter.getSelectedData() );
                 break;
             case R.id.tv_remove:
-                presenter.remove(gridAdapter.getSelectedData());
+                presenter.remove( gridAdapter.getSelectedData() );
                 break;
             case R.id.tv_collect:
-                presenter.collect(gridAdapter.getSelectedData());
+                presenter.collect( gridAdapter.getSelectedData() );
                 break;
             default:
                 break;
@@ -288,69 +328,70 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
 
     @Override
     public void showUnBindLayout() {
-        llBind.setVisibility(View.GONE);
-        llUnBind.setVisibility(View.VISIBLE);
+        llBind.setVisibility( View.GONE );
+        llUnBind.setVisibility( View.VISIBLE );
     }
 
     @Override
     public void showBindLayout() {
-        llBind.setVisibility(View.VISIBLE);
-        llUnBind.setVisibility(View.GONE);
+        llBind.setVisibility( View.VISIBLE );
+        llUnBind.setVisibility( View.GONE );
     }
 
     @Override
     public void showGrid() {
-        tvSelected.setVisibility(View.VISIBLE);
-        rvGrid.setVisibility(View.VISIBLE);
-        mMapView.setVisibility(View.GONE);
+        tvSelected.setVisibility( View.VISIBLE );
+        rvGrid.setVisibility( View.VISIBLE );
+        mMapView.setVisibility( View.GONE );
     }
 
     @Override
     public void showMap() {
-        tvSelected.setVisibility(View.GONE);
-        rvGrid.setVisibility(View.GONE);
-        mMapView.setVisibility(View.VISIBLE);
+        tvSelected.setVisibility( View.GONE );
+        rvGrid.setVisibility( View.GONE );
+        mMapView.setVisibility( View.VISIBLE );
     }
 
     @Override
     public void showGridData(List<RecordListData.RowsBean> datas) {
+
         gridBeans.clear();
-        gridBeans.addAll(datas);
+        gridBeans.addAll( datas );
         gridAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showBottomBar() {
-        llBottom.setVisibility(View.VISIBLE);
-        llAdd.setVisibility(View.GONE);
+        llBottom.setVisibility( View.VISIBLE );
+        llAdd.setVisibility( View.GONE );
     }
 
     @Override
     public void showAddBar() {
-        llBottom.setVisibility(View.GONE);
-        llAdd.setVisibility(View.VISIBLE);
+        llBottom.setVisibility( View.GONE );
+        llAdd.setVisibility( View.VISIBLE );
     }
 
     @Override
     public void showSelectedMode() {
 
-        llSelect.setVisibility(View.VISIBLE);
-        llAdd.setVisibility(View.GONE);
-        llBottom.setVisibility(View.GONE);
-        TypeSafer.text(tvSelectCount, "已选择" + gridAdapter.getSelectedData().size() + "张");
-        TypeSafer.text(tvSelected, "返回");
-        radioGroup.setVisibility(View.GONE);
-        tvSelectCount.setVisibility(View.VISIBLE);
+        llSelect.setVisibility( View.VISIBLE );
+        llAdd.setVisibility( View.GONE );
+        llBottom.setVisibility( View.GONE );
+        TypeSafer.text( tvSelectCount, "已选择" + gridAdapter.getSelectedData().size() + "张" );
+        TypeSafer.text( tvSelected, "返回" );
+        radioGroup.setVisibility( View.GONE );
+        tvSelectCount.setVisibility( View.VISIBLE );
     }
 
     @Override
     public void showGridMode() {
-        llSelect.setVisibility(View.GONE);
-        llAdd.setVisibility(View.GONE);
-        llBottom.setVisibility(View.VISIBLE);
-        radioGroup.setVisibility(View.VISIBLE);
-        tvSelectCount.setVisibility(View.GONE);
-        TypeSafer.text(tvSelected, "选择");
+        llSelect.setVisibility( View.GONE );
+        llAdd.setVisibility( View.GONE );
+        llBottom.setVisibility( View.VISIBLE );
+        radioGroup.setVisibility( View.VISIBLE );
+        tvSelectCount.setVisibility( View.GONE );
+        TypeSafer.text( tvSelected, "选择" );
     }
 
 
@@ -387,8 +428,8 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mMapView.onSaveInstanceState(outState);
+        super.onSaveInstanceState( outState );
+        mMapView.onSaveInstanceState( outState );
     }
 
     @Override
@@ -396,5 +437,18 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
         super.onDestroy();
         mMapView.onDestroy();
 
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        ToastUtil.show( "marker" );
+        RecordListData.RowsBean rowsBean = new RecordListData.RowsBean();
+        if (gridBeans != null && gridBeans.size() > 0) {
+            rowsBean.setPhotoUrl( gridBeans.get( 0 ).getPhotoUrl() );
+        }
+        rowsBean.setLatitude( marker.getPosition().latitude );
+        rowsBean.setLatitude( marker.getPosition().longitude );
+        FragmentSwitcher.replaceUnAddToBackStackFragment( ShowInfoFragment.getInstance( rowsBean ) );
+        return false;
     }
 }

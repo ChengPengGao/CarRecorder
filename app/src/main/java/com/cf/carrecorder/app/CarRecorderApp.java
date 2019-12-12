@@ -1,7 +1,6 @@
 package com.cf.carrecorder.app;
 
 import android.app.Application;
-import android.content.Context;
 
 import com.cf.carrecorder.config.GlobalConfig;
 import com.cf.carrecorder.config.GlobalConstants;
@@ -15,6 +14,7 @@ import me.jessyan.autosize.AutoSizeConfig;
  * @email androidhcx@163.com
  **/
 public class CarRecorderApp extends Application {
+
 
     @Override
     public void onCreate() {
@@ -36,4 +36,5 @@ public class CarRecorderApp extends Application {
         GlobalConfig.userPhone = SPUtil.getString(GlobalConstants.USER_PHONE);
         GlobalConfig.isBinded = SPUtil.getBoolean(GlobalConstants.IS_BINDED,false);
     }
+
 }
