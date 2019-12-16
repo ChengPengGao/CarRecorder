@@ -1,14 +1,14 @@
 <component name="libraryTable">
   <library name="Gradle: me.jessyan:autosize:1.0.0@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/abc85372f4dbf399e485dadfdb55d353/jetified-autosize-1.0.0/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/abc85372f4dbf399e485dadfdb55d353/jetified-autosize-1.0.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2b0bf6d2dc04bbdb1c0a5cc403e3f7ba/jetified-autosize-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2b0bf6d2dc04bbdb1c0a5cc403e3f7ba/jetified-autosize-1.0.0/res" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/me.jessyan/autosize/1.0.0/5fe73c3a38109ec33e2318408264b51a63ca8422/autosize-1.0.0-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.jessyan/autosize/1.0.0/5fe73c3a38109ec33e2318408264b51a63ca8422/autosize-1.0.0-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/me.jessyan/autosize/1.0.0/fad49d449938a772c73eb8aceb7a640d883faad1/autosize-1.0.0-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.jessyan/autosize/1.0.0/fad49d449938a772c73eb8aceb7a640d883faad1/autosize-1.0.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

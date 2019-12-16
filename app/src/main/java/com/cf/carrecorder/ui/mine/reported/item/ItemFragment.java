@@ -11,7 +11,10 @@ import com.cf.carrecorder.base.fragment.BaseFragment;
 import com.cf.carrecorder.bean.ReportListData;
 import com.cf.carrecorder.bean.ReportedBean;
 import com.cf.carrecorder.event.CarRecorderEvent;
+import com.cf.carrecorder.ui.mine.reported.item.reportdetail.ReportDetailFragment;
+import com.cf.carrecorder.utils.FragmentSwitcher;
 import com.cf.carrecorder.utils.SpacesItemDecoration;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +55,9 @@ public class ItemFragment extends BaseFragment<ItemView,ItemPresenter> implement
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.addItemDecoration(new SpacesItemDecoration(1));
         presenter.loadReportedData(type);
+        adapter.setOnItemClickListener((adapter, view1, position) -> {
+            FragmentSwitcher.replaceFragment(new ReportDetailFragment(datas.get(position)));
+        });
     }
 
 
