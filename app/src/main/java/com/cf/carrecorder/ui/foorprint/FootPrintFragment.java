@@ -394,6 +394,23 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
         TypeSafer.text( tvSelected, "选择" );
     }
 
+    @Override
+    public void removeList(List<Integer> ids) {
+
+        List<RecordListData.RowsBean> removeBeans = new ArrayList<>();
+        for(int i = 0 ; i < gridBeans.size();i++){
+            if(ids.contains(gridBeans.get(i).getId())){
+                removeBeans.add(gridBeans.get(i));
+            }
+
+        }
+        gridAdapter.changeSelected();
+        showGridMode();
+        gridBeans.removeAll(removeBeans);
+        gridAdapter.notifyDataSetChanged();
+
+    }
+
 
     @OnCheckedChanged({R.id.rbtn_map, R.id.rbtn_grid})
     public void onRadioCheck(CompoundButton view, boolean isChecked) {

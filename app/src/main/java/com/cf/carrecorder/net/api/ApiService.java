@@ -94,4 +94,12 @@ public interface ApiService {
     @POST("app/addConllection")
     Observable<HttpResult> addConllection(@Body RequestBody body);
 
+    /**
+     * 删除
+     * @param body
+     * @return
+     */
+    @POST("app/deleteConllection")
+    Observable<HttpResult> deleteConllection(@Body RequestBody body);
+
 }

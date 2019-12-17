@@ -169,4 +169,10 @@ public class CarRecorderApi {
         RequestBody requestParams = RequestBody.create(MediaType.parse("application/json"), jsonString);
         return AppNetwordManager.getApiService().addConllection(requestParams);
     }
+
+    public static Observable deleteConllection(AddConllectionBean addConllectionBean){
+        String jsonString = JSON.toJSONString(addConllectionBean);
+        RequestBody requestParams = RequestBody.create(MediaType.parse("application/json"), jsonString);
+        return AppNetwordManager.getApiService().deleteConllection(requestParams);
+    }
 }

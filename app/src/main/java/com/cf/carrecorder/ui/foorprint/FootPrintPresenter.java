@@ -71,6 +71,7 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
 
                             for (int i = 0; i < 10; i++) {
                                 RecordListData.RowsBean rowsBean = new RecordListData.RowsBean();
+                                rowsBean.setId(i);
                                 rowsBean.setCarNo("浙A 12345");
                                 rowsBean.setUploadTime((int) System.currentTimeMillis());
                                 rowsBean.setPhotoUrl("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575968901049&di=6f6974d5386445e5d8461a5a2144565d&imgtype=0&src=http%3A%2F%2Fpic1.16pic.com%2F00%2F07%2F85%2F16pic_785034_b.jpg");
@@ -78,6 +79,7 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
                             }
 
                             RecordListData.RowsBean rowsBean = new RecordListData.RowsBean();
+                            rowsBean.setId(10);
                             rowsBean.setCarNo("浙A 12345");
                             rowsBean.setUploadTime((int) System.currentTimeMillis());
                             rowsBean.setPhotoUrl("http://img0.imgtn.bdimg.com/it/u=2295531968,2229594038&fm=26&gp=0.jpg");
@@ -85,6 +87,7 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
 
 
                             RecordListData.RowsBean rowsBean1 = new RecordListData.RowsBean();
+                            rowsBean.setId(11);
                             rowsBean1.setCarNo("浙A 12345");
                             rowsBean1.setUploadTime((int) System.currentTimeMillis());
                             rowsBean1.setPhotoUrl("http://img0.imgtn.bdimg.com/it/u=114125295,3101929527&fm=26&gp=0.jpg");
@@ -93,6 +96,7 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
 
 
                             RecordListData.RowsBean rowsBean2 = new RecordListData.RowsBean();
+                            rowsBean.setId(12);
                             rowsBean2.setCarNo("浙A 12345");
                             rowsBean2.setUploadTime((int) System.currentTimeMillis());
                             rowsBean2.setPhotoUrl("http://img5.imgtn.bdimg.com/it/u=2687924329,1885072214&fm=26&gp=0.jpg");
@@ -138,6 +142,33 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
             ToastUtil.show("请选择");
             return;
         }
+
+        AddConllectionBean addConllectionBean = new AddConllectionBean();
+        addConllectionBean.setUserId(GlobalConfig.userId);
+        List<Integer> ids = new ArrayList<>();
+        for(RecordListData.RowsBean data : selectedData){
+            ids.add(data.getId());
+        }
+        addConllectionBean.setDrivingList(ids);
+        CarRecorderApi.deleteConllection(addConllectionBean)
+                .subscribeOn(Schedulers.from(CarRecorderApi.service))
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(lifeCycleCarrier)
+                .subscribe(new RxSubscriber<HttpResult>() {
+                    @Override
+                    protected void onSuccess(HttpResult result) {
+                        Log.i("load addCollection",result.toString());
+                        if("0".equals(result.getCode())){
+                            v.removeList(ids);
+                        }
+                        ToastUtil.show(result.getMsg());
+                    }
+
+                    @Override
+                    protected void onFailure(String errorMsg) {
+                        ToastUtil.show(errorMsg);
+                    }
+                });
     }
 
     public void collect(List<RecordListData.RowsBean> selectedData) {

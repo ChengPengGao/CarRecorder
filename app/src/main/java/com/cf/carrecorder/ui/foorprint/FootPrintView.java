@@ -52,4 +52,6 @@ public interface FootPrintView extends BaseFragmentView {
     void showSelectedMode();
 
     void showGridMode();
+
+    void removeList(List<Integer> ids);
 }
