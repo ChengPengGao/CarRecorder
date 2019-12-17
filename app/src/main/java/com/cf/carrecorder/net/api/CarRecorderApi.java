@@ -2,6 +2,7 @@ package com.cf.carrecorder.net.api;
 
 import com.alibaba.fastjson.JSON;
 import com.cf.carrecorder.bean.ReportedBean;
+import com.cf.carrecorder.bean.request.AddConllectionBean;
 import com.cf.carrecorder.bean.request.BindBean;
 import com.cf.carrecorder.bean.request.LoginBean;
 import com.cf.carrecorder.bean.request.ReceiveBean;
@@ -161,5 +162,11 @@ public class CarRecorderApi {
         String jsonString = JSON.toJSONString(reportListBean);
         RequestBody requestParams = RequestBody.create(MediaType.parse("application/json"), jsonString);
         return AppNetwordManager.getApiService().reportList(requestParams, params);
+    }
+
+    public static Observable addConllection(AddConllectionBean addConllectionBean){
+        String jsonString = JSON.toJSONString(addConllectionBean);
+        RequestBody requestParams = RequestBody.create(MediaType.parse("application/json"), jsonString);
+        return AppNetwordManager.getApiService().addConllection(requestParams);
     }
 }

@@ -85,4 +85,13 @@ public interface ApiService {
      */
     @POST("app/reportList")
     Observable<String> reportList(@Body RequestBody body, @QueryMap HashMap<String, Object> param);
+
+    /**
+     * 收藏
+     * @param body
+     * @return
+     */
+    @POST("app/addConllection")
+    Observable<HttpResult> addConllection(@Body RequestBody body);
+
 }

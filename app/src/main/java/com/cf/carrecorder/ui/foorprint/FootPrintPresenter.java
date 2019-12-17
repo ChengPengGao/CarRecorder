@@ -13,7 +13,9 @@ import com.cf.carrecorder.bean.GridBean;
 import com.cf.carrecorder.bean.HttpResult;
 import com.cf.carrecorder.bean.RecordListData;
 import com.cf.carrecorder.bean.RxSubscriber;
+import com.cf.carrecorder.bean.request.AddConllectionBean;
 import com.cf.carrecorder.bean.request.RecordListBean;
+import com.cf.carrecorder.config.GlobalConfig;
 import com.cf.carrecorder.net.api.CarRecorderApi;
 import com.cf.carrecorder.utils.BitmapUtil;
 import com.cf.carrecorder.utils.ListUtil;
@@ -143,6 +145,37 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
             ToastUtil.show("请选择");
             return;
         }
+
+        AddConllectionBean addConllectionBean = new AddConllectionBean();
+        addConllectionBean.setUserId(GlobalConfig.userId);
+        List<Integer> ids = new ArrayList<>();
+        for(RecordListData.RowsBean data : selectedData){
+            ids.add(data.getId());
+        }
+        addConllectionBean.setDrivingList(ids);
+        CarRecorderApi.addConllection(addConllectionBean)
+                .subscribeOn(Schedulers.from(CarRecorderApi.service))
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(lifeCycleCarrier)
+                .subscribe(new RxSubscriber<HttpResult>() {
+                    @Override
+                    protected void onSuccess(HttpResult result) {
+                        Log.i("load addCollection",result.toString());
+                        if("0".equals(result.getCode())){
+
+                        }
+                        ToastUtil.show(result.getMsg());
+                    }
+
+                    @Override
+                    protected void onFailure(String errorMsg) {
+
+                        Log.i("load addCollection",errorMsg);
+                        ToastUtil.show(errorMsg);
+                    }
+                });
+
+
     }
 
 }

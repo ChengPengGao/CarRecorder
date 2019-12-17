@@ -131,8 +131,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher" />
+            android:scaleType="centerCrop" />
 
         <ImageView
             android:id="@+id/iv_1"
@@ -140,8 +139,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher" />
+            android:scaleType="centerCrop"/>
 
         <ImageView
             android:id="@+id/iv_2"
@@ -150,8 +148,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher" />
+            android:scaleType="centerCrop" />
 
     </LinearLayout>
 

@@ -5,384 +5,391 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="44dp">
 
-            <ImageView
-                android:id="@+id/iv_back"
-                android:layout_width="50dp"
-                android:layout_height="30dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="5dp"
-                android:clickable="true"
-                android:src="@drawable/back" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="违章举报"
-                android:textColor="@color/black"
-                android:textSize="22dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="false"
-                android:textSize="18dp"
-                android:textColor="@color/black"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginRight="15dp"
-                android:text="杭州市"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"/>
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray"/>
-
+        android:layout_height="match_parent">
         <LinearLayout
-            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="15dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp">
+
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="5dp"
+                    android:clickable="true"
+                    android:src="@drawable/back" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="违章举报"
+                    android:textColor="@color/black"
+                    android:textSize="22dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="false"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="15dp"
+                    android:text="杭州市"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"/>
+
+            <LinearLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="违章类型"
-                android:textColor="@color/black"
-                android:textSize="18dp"/>
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="违章类型"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:id="@+id/tv_breakType"
+                    android:clickable="true"
+                    android:layout_width="0dp"
+                    android:layout_marginLeft="60dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:singleLine="true"
+                    android:hint="请选择违章类型"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"/>
+
+
+            <LinearLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_detailed"
+                    android:layout_width="0dp"
+                    android:gravity="left"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="请输入被举报车辆的违章行为（选填）"
+                    android:singleLine="true"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"/>
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_breakType"
-                android:clickable="true"
-                android:layout_width="0dp"
-                android:layout_marginLeft="60dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:singleLine="true"
-                android:hint="请选择违章类型"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18dp"/>
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:padding="5dp"
+                android:background="@color/gray"
+                android:text="上传举报证据（请上传至少3张图片，确保图片清晰）"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"/>
+
+            <com.goyourfly.multi_picture.MultiPictureView
+                android:id="@+id/mpv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:editable="true"
+                app:addDrawable="@drawable/img_add"
+                app:imageLayoutMode="STATIC"
+                app:max="9"
+                app:ratio="1"
+                app:space="6dp"
+                app:span="3" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"/>
+
+            <LinearLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="违章时间"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:id="@+id/tv_breakTime"
+                    android:clickable="true"
+                    android:layout_width="0dp"
+                    android:layout_marginLeft="60dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:singleLine="true"
+                    android:hint="请输入提示"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"/>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"/>
+
+            <LinearLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="违章地点"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"/>
+
+                <EditText
+                    android:id="@+id/et_address"
+                    android:layout_width="0dp"
+                    android:layout_marginLeft="60dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:singleLine="true"
+                    android:hint="请输入提示"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:padding="5dp"
+                android:background="@color/gray"
+                android:text="违章车辆信息"/>
+
+
+            <LinearLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="车牌类型"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:id="@+id/tv_carType"
+                    android:clickable="true"
+                    android:layout_width="0dp"
+                    android:layout_marginLeft="60dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:singleLine="true"
+                    android:hint="请输入提示"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"/>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"/>
+
+            <LinearLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="车牌号码"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"/>
+
+                <EditText
+                    android:id="@+id/et_carNo"
+                    android:layout_width="0dp"
+                    android:layout_marginLeft="60dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:singleLine="true"
+                    android:hint="请输入提示"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:padding="5dp"
+                android:background="@color/gray"
+                android:text="举报人信息"/>
+
+
+            <LinearLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="举报人姓名"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"/>
+
+                <EditText
+                    android:id="@+id/et_reportUser"
+                    android:layout_width="0dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:singleLine="true"
+                    android:hint="涉及举报奖励，举报必须实名"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"/>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"/>
+
+            <LinearLayout
+
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="身份证号码"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"/>
+
+                <EditText
+                    android:id="@+id/et_reportIdCard"
+                    android:layout_width="0dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:singleLine="true"
+                    android:hint="涉及举报奖励，举报必须填写"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"/>
+
+            <LinearLayout
+
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="手机号码"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"/>
+
+                <EditText
+                    android:id="@+id/et_reportPhone"
+                    android:layout_width="0dp"
+                    android:layout_marginLeft="55dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:singleLine="true"
+                    android:hint="涉及举报奖励，举报必须填写"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"/>
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="match_parent"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_height="wrap_content"
+                android:text="确定"
+                android:background="@drawable/sp_btn_mine"/>
+
 
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray"/>
+    </ScrollView>
 
 
-        <LinearLayout
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="15dp"
-            android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/et_detailed"
-                android:layout_width="0dp"
-                android:gravity="left"
-                android:layout_weight="1"
-                android:background="@null"
-                android:hint="请输入被举报车辆的违章行为（选填）"
-                android:singleLine="true"
-                android:layout_height="wrap_content"
-                android:textSize="18dp"/>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="14dp"
-            android:padding="5dp"
-            android:background="@color/gray"
-            android:text="上传举报证据（请上传至少3张图片，确保图片清晰）"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray"/>
-
-        <com.goyourfly.multi_picture.MultiPictureView
-            android:id="@+id/mpv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:editable="true"
-            app:addDrawable="@drawable/img_add"
-            app:imageLayoutMode="STATIC"
-            app:max="9"
-            app:ratio="1"
-            app:space="6dp"
-            app:span="3" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray"/>
-
-        <LinearLayout
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="15dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="违章时间"
-                android:textColor="@color/black"
-                android:textSize="18dp"/>
-
-            <TextView
-                android:id="@+id/tv_breakTime"
-                android:clickable="true"
-                android:layout_width="0dp"
-                android:layout_marginLeft="60dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:singleLine="true"
-                android:hint="请输入提示"
-                android:layout_height="wrap_content"
-                android:textSize="18dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray"/>
-
-        <LinearLayout
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="15dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="违章地点"
-                android:textColor="@color/black"
-                android:textSize="18dp"/>
-
-            <EditText
-                android:id="@+id/et_address"
-                android:layout_width="0dp"
-                android:layout_marginLeft="60dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:singleLine="true"
-                android:hint="请输入提示"
-                android:layout_height="wrap_content"
-                android:textSize="18dp"/>
-
-        </LinearLayout>
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="14dp"
-            android:padding="5dp"
-            android:background="@color/gray"
-            android:text="违章车辆信息"/>
-
-
-        <LinearLayout
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="15dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="车牌类型"
-                android:textColor="@color/black"
-                android:textSize="18dp"/>
-
-            <TextView
-                android:id="@+id/tv_carType"
-                android:clickable="true"
-                android:layout_width="0dp"
-                android:layout_marginLeft="60dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:singleLine="true"
-                android:hint="请输入提示"
-                android:layout_height="wrap_content"
-                android:textSize="18dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray"/>
-
-        <LinearLayout
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="15dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="车牌号码"
-                android:textColor="@color/black"
-                android:textSize="18dp"/>
-
-            <EditText
-                android:id="@+id/et_carNo"
-                android:layout_width="0dp"
-                android:layout_marginLeft="60dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:singleLine="true"
-                android:hint="请输入提示"
-                android:layout_height="wrap_content"
-                android:textSize="18dp"/>
-
-        </LinearLayout>
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="14dp"
-            android:padding="5dp"
-            android:background="@color/gray"
-            android:text="举报人信息"/>
-
-
-        <LinearLayout
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="15dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="举报人姓名"
-                android:textColor="@color/black"
-                android:textSize="18dp"/>
-
-            <EditText
-                android:id="@+id/et_reportUser"
-                android:layout_width="0dp"
-                android:layout_marginLeft="40dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:singleLine="true"
-                android:hint="涉及举报奖励，举报必须实名"
-                android:layout_height="wrap_content"
-                android:textSize="18dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray"/>
-
-        <LinearLayout
-
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="15dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="身份证号码"
-                android:textColor="@color/black"
-                android:textSize="18dp"/>
-
-            <EditText
-                android:id="@+id/et_reportIdCard"
-                android:layout_width="0dp"
-                android:layout_marginLeft="40dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:singleLine="true"
-                android:hint="涉及举报奖励，举报必须填写"
-                android:layout_height="wrap_content"
-                android:textSize="18dp"/>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray"/>
-
-        <LinearLayout
-
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="15dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="手机号码"
-                android:textColor="@color/black"
-                android:textSize="18dp"/>
-
-            <EditText
-                android:id="@+id/et_reportPhone"
-                android:layout_width="0dp"
-                android:layout_marginLeft="55dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:singleLine="true"
-                android:hint="涉及举报奖励，举报必须填写"
-                android:layout_height="wrap_content"
-                android:textSize="18dp"/>
-
-        </LinearLayout>
-
-
-        <Button
-            android:id="@+id/btn_save"
-            android:layout_width="match_parent"
-            android:layout_marginTop="40dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_height="wrap_content"
-            android:text="确定"
-            android:background="@drawable/sp_btn_mine"/>
-
-
-    </LinearLayout>
     <top.defaults.view.PickerView
         android:id="@+id/pv_type"
         android:visibility="gone"
