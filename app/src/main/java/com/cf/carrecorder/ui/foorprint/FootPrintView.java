@@ -1,7 +1,6 @@
 package com.cf.carrecorder.ui.foorprint;
 
 import com.cf.carrecorder.base.fragment.BaseFragmentView;
-import com.cf.carrecorder.bean.GridBean;
 import com.cf.carrecorder.bean.RecordListData;
 
 import java.util.List;
@@ -54,4 +53,6 @@ public interface FootPrintView extends BaseFragmentView {
     void showGridMode();
 
     void removeList(List<Integer> ids);
+
+    void jumpToReport(List<String> pics);
 }

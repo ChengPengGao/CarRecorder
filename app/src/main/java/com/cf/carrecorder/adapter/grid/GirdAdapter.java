@@ -6,6 +6,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cf.carrecorder.R;
 import com.cf.carrecorder.bean.GridBean;
 import com.cf.carrecorder.bean.RecordListData;
@@ -34,7 +35,7 @@ public class GirdAdapter extends BaseQuickAdapter<RecordListData.RowsBean, BaseV
 
     List<RecordListData.RowsBean> selectedData = new ArrayList<>();
 
-    public GirdAdapter(@Nullable List<RecordListData.RowsBean> data,Context context) {
+    public GirdAdapter(@Nullable List<RecordListData.RowsBean> data, Context context) {
         super(R.layout.item_grid, data);
         this.context = context;
     }
@@ -45,33 +46,32 @@ public class GirdAdapter extends BaseQuickAdapter<RecordListData.RowsBean, BaseV
         helper
                 .setText(R.id.tv_time, simpleDateFormat.format(item.getUploadTime()))
                 .setText(R.id.tv_code, item.getCarNo())
-                .setVisible(R.id.cb,isSelectMode)
+                .setVisible(R.id.cb, isSelectMode)
                 .setOnCheckedChangeListener(R.id.cb, (buttonView, isChecked) -> {
-                    if(isChecked){
+                    if (isChecked) {
                         selectedData.add(item);
-                    }else{
+                    } else {
                         selectedData.remove(item);
                     }
                     EventBus.getDefault().post(new CarRecorderEvent(CarRecorderEvent.SELECT));
                 });
         Glide.with(context)
                 .load(item.getPhotoUrl())
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into((ImageView) helper.getView(R.id.iv_record));
-
-
 
 
     }
 
     public void changeSelected() {
         isSelectMode = !isSelectMode;
-        if(!isSelectMode){
+        if (!isSelectMode) {
             selectedData.clear();
         }
         notifyDataSetChanged();
     }
 
-    public List<RecordListData.RowsBean> getSelectedData(){
+    public List<RecordListData.RowsBean> getSelectedData() {
         return selectedData;
     }
 }

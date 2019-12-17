@@ -68,7 +68,6 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
                             List<RecordListData.RowsBean> datas = new ArrayList<>();
 
 
-
                             for (int i = 0; i < 10; i++) {
                                 RecordListData.RowsBean rowsBean = new RecordListData.RowsBean();
                                 rowsBean.setId(i);
@@ -92,7 +91,6 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
                             rowsBean1.setUploadTime((int) System.currentTimeMillis());
                             rowsBean1.setPhotoUrl("http://img0.imgtn.bdimg.com/it/u=114125295,3101929527&fm=26&gp=0.jpg");
                             datas.add(rowsBean1);
-
 
 
                             RecordListData.RowsBean rowsBean2 = new RecordListData.RowsBean();
@@ -146,7 +144,7 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
         AddConllectionBean addConllectionBean = new AddConllectionBean();
         addConllectionBean.setUserId(GlobalConfig.userId);
         List<Integer> ids = new ArrayList<>();
-        for(RecordListData.RowsBean data : selectedData){
+        for (RecordListData.RowsBean data : selectedData) {
             ids.add(data.getId());
         }
         addConllectionBean.setDrivingList(ids);
@@ -157,8 +155,8 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
                 .subscribe(new RxSubscriber<HttpResult>() {
                     @Override
                     protected void onSuccess(HttpResult result) {
-                        Log.i("load addCollection",result.toString());
-                        if("0".equals(result.getCode())){
+                        Log.i("load addCollection", result.toString());
+                        if ("0".equals(result.getCode())) {
                             v.removeList(ids);
                         }
                         ToastUtil.show(result.getMsg());
@@ -180,7 +178,7 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
         AddConllectionBean addConllectionBean = new AddConllectionBean();
         addConllectionBean.setUserId(GlobalConfig.userId);
         List<Integer> ids = new ArrayList<>();
-        for(RecordListData.RowsBean data : selectedData){
+        for (RecordListData.RowsBean data : selectedData) {
             ids.add(data.getId());
         }
         addConllectionBean.setDrivingList(ids);
@@ -191,8 +189,8 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
                 .subscribe(new RxSubscriber<HttpResult>() {
                     @Override
                     protected void onSuccess(HttpResult result) {
-                        Log.i("load addCollection",result.toString());
-                        if("0".equals(result.getCode())){
+                        Log.i("load addCollection", result.toString());
+                        if ("0".equals(result.getCode())) {
 
                         }
                         ToastUtil.show(result.getMsg());
@@ -201,7 +199,7 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
                     @Override
                     protected void onFailure(String errorMsg) {
 
-                        Log.i("load addCollection",errorMsg);
+                        Log.i("load addCollection", errorMsg);
                         ToastUtil.show(errorMsg);
                     }
                 });
@@ -209,4 +207,22 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
 
     }
 
+    /**
+     * 举报违章
+     *
+     * @param selectedData
+     */
+    public void report(List<RecordListData.RowsBean> selectedData) {
+        if (ListUtil.isEmpty(selectedData)) {
+            ToastUtil.show("请选择");
+            return;
+        }
+
+        List<String> pics = new ArrayList<>();
+        for (int i = 0; i < selectedData.size(); i++) {
+            pics.add(selectedData.get(i).getPhotoUrl());
+        }
+
+        v.jumpToReport(pics);
+    }
 }

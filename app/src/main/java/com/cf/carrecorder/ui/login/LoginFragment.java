@@ -65,7 +65,7 @@ public class LoginFragment extends BaseFragment<LoginView, LoginPresenter> imple
                     ToastUtil.show("请先登录");
                     return;
                 }
-                FragmentSwitcher.replaceFragment(ReportFragment.getInstance());
+                FragmentSwitcher.replaceFragment(new ReportFragment());
                 break;
             case R.id.tv_regist:
                 FragmentSwitcher.replaceFragment(RegistFragment.getInstance());

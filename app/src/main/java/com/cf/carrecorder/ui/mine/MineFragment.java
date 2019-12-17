@@ -131,7 +131,7 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
                     ToastUtil.show("请先登录");
                     return;
                 }
-                FragmentSwitcher.replaceFragment(ReportFragment.getInstance());
+                FragmentSwitcher.replaceFragment(new ReportFragment());
                 break;
             case R.id.tv_bottom_bind:
                 if (!GlobalConfig.isLogined) {

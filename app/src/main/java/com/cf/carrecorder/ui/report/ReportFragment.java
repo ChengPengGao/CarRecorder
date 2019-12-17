@@ -3,15 +3,18 @@ package com.cf.carrecorder.ui.report;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.cf.carrecorder.R;
+import com.cf.carrecorder.app.CarRecorderContext;
 import com.cf.carrecorder.base.fragment.BaseFragment;
 import com.cf.carrecorder.bean.Item;
 import com.cf.carrecorder.ui.regist.RegistFragment;
+import com.cf.carrecorder.utils.ListUtil;
 import com.cf.carrecorder.utils.TypeSafer;
 import com.goyourfly.multi_picture.ImageLoader;
 import com.goyourfly.multi_picture.MultiPictureView;
@@ -19,6 +22,7 @@ import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -116,21 +120,26 @@ public class ReportFragment extends BaseFragment<ReportView, ReportPresenter> im
 
     private int carType = 0;
 
+    public ReportFragment() {
 
-    public static ReportFragment getInstance() {
-        if (instance == null) {
-            instance = new ReportFragment();
+    }
+
+    public ReportFragment(List<String> netPics) {
+        List<Uri> uris = new ArrayList<>();
+        for (int i = 0; i < netPics.size(); i++) {
+            uris.add(Uri.parse(netPics.get(i)));
         }
-
-        return instance;
+        pics = uris;
     }
 
 
     @Override
     protected void initView(View view) {
-        MultiPictureView.setImageLoader((ImageLoader) (imageView, uri) -> Glide.with(getActivity())
-                .load(uri)
-                .into(imageView));
+        MultiPictureView.setImageLoader((ImageLoader) (imageView, uri) -> {
+            Glide.with(getActivity())
+                    .load(uri)
+                    .into(imageView);
+        });
 
         mpv.setAddClickCallback(view1 -> {
             Matisse.from(this)
@@ -162,9 +171,13 @@ public class ReportFragment extends BaseFragment<ReportView, ReportPresenter> im
             int minute = date.get(Calendar.MINUTE);
             breakTime = date.getTimeInMillis();
             String dateString = String.format(Locale.getDefault(), "%d年%02d月%02d日%02d时%02d分", year, month + 1, dayOfMonth, hour, minute);
-           TypeSafer.text(tvBreakTime,dateString);
+            TypeSafer.text(tvBreakTime, dateString);
         });
 
+
+        if(!ListUtil.isEmpty(pics)){
+            mpv.setList(pics);
+        }
 
     }
 
@@ -173,6 +186,8 @@ public class ReportFragment extends BaseFragment<ReportView, ReportPresenter> im
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case CODE_PICS:
+
+                Log.i("asd",pics.toString());
                 pics = Matisse.obtainResult(data);
                 mpv.setList(pics);
                 break;
@@ -192,7 +207,7 @@ public class ReportFragment extends BaseFragment<ReportView, ReportPresenter> im
         return new ReportPresenter();
     }
 
-    @OnClick({R.id.iv_back, R.id.btn_save, R.id.tv_breakType,R.id.tv_carType,R.id.tv_breakTime,R.id.et_reportPhone,R.id.et_reportIdCard,R.id.et_reportUser})
+    @OnClick({R.id.iv_back, R.id.btn_save, R.id.tv_breakType, R.id.tv_carType, R.id.tv_breakTime, R.id.et_reportPhone, R.id.et_reportIdCard, R.id.et_reportUser})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -243,8 +258,8 @@ public class ReportFragment extends BaseFragment<ReportView, ReportPresenter> im
             R.id.et_detailed,
             R.id.et_address,
             R.id.et_carNo})
-    public void onFocusChange(View v,boolean hasFocus){
-        if(hasFocus){
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus) {
 
             hideAllPickView();
         }
