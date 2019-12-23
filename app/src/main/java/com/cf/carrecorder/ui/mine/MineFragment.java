@@ -113,7 +113,8 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
             R.id.tv_devices,
             R.id.rl_car,
             R.id.rl_feedback,
-            R.id.rl_editPassword})
+            R.id.rl_editPassword,
+            R.id.tv_collection})
     protected void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_footPrint:
@@ -164,6 +165,9 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
                 break;
             case R.id.tv_devices:
                 FragmentSwitcher.replaceFragment(DevicesFragment.getInstance());
+                break;
+            case R.id.tv_collection:
+                FragmentSwitcher.replaceFragment(new FootPrintFragment(true));
                 break;
 
             default:

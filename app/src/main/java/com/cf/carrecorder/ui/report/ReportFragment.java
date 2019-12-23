@@ -186,8 +186,6 @@ public class ReportFragment extends BaseFragment<ReportView, ReportPresenter> im
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case CODE_PICS:
-
-                Log.i("asd",pics.toString());
                 pics = Matisse.obtainResult(data);
                 mpv.setList(pics);
                 break;

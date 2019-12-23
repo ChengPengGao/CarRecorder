@@ -2,12 +2,14 @@ package com.cf.carrecorder.ui.foorprint;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -104,13 +106,26 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
     @BindView(R.id.ll_select)
     LinearLayout llSelect;
 
+    @BindView(R.id.tv_hTitle)
+    TextView tvHTitle;
+
+    @BindView(R.id.iv_hBack)
+    ImageView ivHBack;
+
     GirdAdapter gridAdapter;
 
     List<RecordListData.RowsBean> gridBeans;
 
+    private boolean isCollection = false;
+
+    public FootPrintFragment(boolean isCollection) {
+        this.isCollection = isCollection;
+    }
+
+
     public static FootPrintFragment getInstance() {
         if (instance == null) {
-            instance = new FootPrintFragment();
+            instance = new FootPrintFragment(false);
         }
 
         return instance;
@@ -140,7 +155,7 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
                 rvGrid.setAdapter(gridAdapter);
                 rvGrid.setLayoutManager(new GridLayoutManager(getActivity(), 4));
                 rvGrid.addItemDecoration(new SpacesItemDecoration(3));
-                presenter.loadGridData();
+                presenter.loadGridData(isCollection);
                 break;
             case CarRecorderEvent.SELECT:
                 TypeSafer.text(tvSelectCount, "已选择" + gridAdapter.getSelectedData().size() + "张");
@@ -161,9 +176,18 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
             rvGrid.setAdapter(gridAdapter);
             rvGrid.setLayoutManager(new GridLayoutManager(getActivity(), 4));
             rvGrid.addItemDecoration(new SpacesItemDecoration(1));
-            presenter.loadGridData();
+            presenter.loadGridData(isCollection);
         } else {
             showUnBindLayout();
+        }
+
+        if (isCollection) {
+            TypeSafer.text(tvHTitle, "我的收藏");
+
+            ivHBack.setVisibility(View.VISIBLE);
+        } else {
+            TypeSafer.text(tvHTitle, "足迹");
+            ivHBack.setVisibility(View.GONE);
         }
 
 
@@ -268,7 +292,8 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
             R.id.tv_save,
             R.id.tv_remove,
             R.id.tv_collect,
-            R.id.tv_report})
+            R.id.tv_report,
+            R.id.iv_hBack})
     protected void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_bind:
@@ -325,6 +350,9 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
                 break;
             case R.id.tv_report:
                 presenter.report(gridAdapter.getSelectedData());
+                break;
+            case R.id.iv_hBack:
+                back();
                 break;
             default:
                 break;

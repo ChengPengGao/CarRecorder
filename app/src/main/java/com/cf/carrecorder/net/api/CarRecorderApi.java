@@ -175,4 +175,23 @@ public class CarRecorderApi {
         RequestBody requestParams = RequestBody.create(MediaType.parse("application/json"), jsonString);
         return AppNetwordManager.getApiService().deleteConllection(requestParams);
     }
+
+    /**
+     * 获取收藏记录
+     *
+     * @param recordListBean
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public static Observable collectionList(RecordListBean recordListBean, int pageNum, int pageSize) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("pageNum", pageNum);
+        params.put("pageSize", pageSize);
+        params.put("orderByColumn", "uploadTime");
+        params.put("isAsc", "desc");
+        String jsonString = JSON.toJSONString(recordListBean);
+        RequestBody requestParams = RequestBody.create(MediaType.parse("application/json"), jsonString);
+        return AppNetwordManager.getApiService().collectionList(requestParams, params);
+    }
 }

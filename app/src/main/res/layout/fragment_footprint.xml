@@ -5,13 +5,13 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:background="@color/white"
         android:id="@+id/ll_all"
-        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:clickable="true"
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/ll_unBind"
@@ -19,7 +19,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:visibility="gone">
-
 
 
             <ImageView
@@ -61,22 +60,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
                 <TextView
                     android:id="@+id/tv_selectCount"
-                    android:visibility="gone"
-                    android:paddingBottom="2dp"
                     android:layout_width="wrap_content"
-                    android:textSize="23dp"
-                    android:textColor="@color/black"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="已选择0张"/>
+                    android:paddingBottom="2dp"
+                    android:text="已选择0张"
+                    android:textColor="@color/black"
+                    android:textSize="23dp"
+                    android:visibility="gone" />
 
                 <RadioGroup
                     android:id="@+id/rg_footprint"
@@ -108,19 +107,30 @@
                 </RadioGroup>
 
                 <TextView
-                    android:visibility="gone"
                     android:id="@+id/tv_selected"
-                    android:clickable="true"
-                    android:layout_marginRight="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_marginRight="5dp"
+                    android:clickable="true"
                     android:gravity="center"
                     android:text="选择"
                     android:textColor="@color/black"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"
+                    android:visibility="gone" />
+
+
+                <ImageView
+                    android:id="@+id/iv_hBack"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/back" />
 
                 <TextView
+                    android:layout_toRightOf="@id/iv_hBack"
+                    android:id="@+id/tv_hTitle"
+                    android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"

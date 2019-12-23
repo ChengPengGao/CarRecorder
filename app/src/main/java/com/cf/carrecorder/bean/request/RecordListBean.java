@@ -6,13 +6,13 @@ package com.cf.carrecorder.bean.request;
  * @email androidhcx@163.com
  **/
 public class RecordListBean {
-    private String deviceNo;
+    private String userId;
 
-    public String getDeviceNo() {
-        return deviceNo;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setDeviceNo(String deviceNo) {
-        this.deviceNo = deviceNo;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

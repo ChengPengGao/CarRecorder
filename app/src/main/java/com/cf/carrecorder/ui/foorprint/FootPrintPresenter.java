@@ -44,73 +44,64 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
     }
 
 
-    public void loadGridData() {
+    public void loadGridData(boolean isCollection) {
 
         RecordListBean recordListBean = new RecordListBean();
-        recordListBean.setDeviceNo("666");
-        CarRecorderApi.recordList(recordListBean, 0, 10)
-                .subscribeOn(Schedulers.from(CarRecorderApi.service))
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(lifeCycleCarrier)
-                .subscribe(new RxSubscriber<HttpResult<RecordListData>>() {
+        recordListBean.setUserId(GlobalConfig.userId);
+        if(isCollection){
+            CarRecorderApi.collectionList(recordListBean, 0, 10)
+                    .subscribeOn(Schedulers.from(CarRecorderApi.service))
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .compose(lifeCycleCarrier)
+                    .subscribe(new RxSubscriber<HttpResult<RecordListData>>() {
 
-                    @Override
-                    protected void onSuccess(HttpResult<RecordListData> result) {
-                        Log.i("load recordList", result.toString());
-                        if (result.getData() != null) {
-                            if ("0".equals(result.getCode())) {
-                                v.showGridData(result.getData().getRows());
-                            } else {
-                                ToastUtil.show(result.getMsg());
-                            }
-                        } else {
-
-                            List<RecordListData.RowsBean> datas = new ArrayList<>();
-
-
-                            for (int i = 0; i < 10; i++) {
-                                RecordListData.RowsBean rowsBean = new RecordListData.RowsBean();
-                                rowsBean.setId(i);
-                                rowsBean.setCarNo("浙A 12345");
-                                rowsBean.setUploadTime((int) System.currentTimeMillis());
-                                rowsBean.setPhotoUrl("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575968901049&di=6f6974d5386445e5d8461a5a2144565d&imgtype=0&src=http%3A%2F%2Fpic1.16pic.com%2F00%2F07%2F85%2F16pic_785034_b.jpg");
-                                datas.add(rowsBean);
+                        @Override
+                        protected void onSuccess(HttpResult<RecordListData> result) {
+                            Log.i("load recordList", result.toString());
+                            if (result.getData() != null) {
+                                if ("0".equals(result.getCode())) {
+                                    v.showGridData(result.getData().getRows());
+                                } else {
+                                    ToastUtil.show(result.getMsg());
+                                }
                             }
 
-                            RecordListData.RowsBean rowsBean = new RecordListData.RowsBean();
-                            rowsBean.setId(10);
-                            rowsBean.setCarNo("浙A 12345");
-                            rowsBean.setUploadTime((int) System.currentTimeMillis());
-                            rowsBean.setPhotoUrl("http://img0.imgtn.bdimg.com/it/u=2295531968,2229594038&fm=26&gp=0.jpg");
-                            datas.add(rowsBean);
-
-
-                            RecordListData.RowsBean rowsBean1 = new RecordListData.RowsBean();
-                            rowsBean.setId(11);
-                            rowsBean1.setCarNo("浙A 12345");
-                            rowsBean1.setUploadTime((int) System.currentTimeMillis());
-                            rowsBean1.setPhotoUrl("http://img0.imgtn.bdimg.com/it/u=114125295,3101929527&fm=26&gp=0.jpg");
-                            datas.add(rowsBean1);
-
-
-                            RecordListData.RowsBean rowsBean2 = new RecordListData.RowsBean();
-                            rowsBean.setId(12);
-                            rowsBean2.setCarNo("浙A 12345");
-                            rowsBean2.setUploadTime((int) System.currentTimeMillis());
-                            rowsBean2.setPhotoUrl("http://img5.imgtn.bdimg.com/it/u=2687924329,1885072214&fm=26&gp=0.jpg");
-                            datas.add(rowsBean2);
-                            v.showGridData(datas);
                         }
 
+                        @Override
+                        protected void onFailure(String errorMsg) {
+                            ToastUtil.show(errorMsg);
+                            Log.e("load recordList", errorMsg);
+                        }
+                    });
+        }else{
+            CarRecorderApi.recordList(recordListBean, 0, 10)
+                    .subscribeOn(Schedulers.from(CarRecorderApi.service))
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .compose(lifeCycleCarrier)
+                    .subscribe(new RxSubscriber<HttpResult<RecordListData>>() {
 
-                    }
+                        @Override
+                        protected void onSuccess(HttpResult<RecordListData> result) {
+                            Log.i("load recordList", result.toString());
+                            if (result.getData() != null) {
+                                if ("0".equals(result.getCode())) {
+                                    v.showGridData(result.getData().getRows());
+                                } else {
+                                    ToastUtil.show(result.getMsg());
+                                }
+                            }
 
-                    @Override
-                    protected void onFailure(String errorMsg) {
-                        ToastUtil.show(errorMsg);
-                        Log.e("load recordList", errorMsg);
-                    }
-                });
+                        }
+
+                        @Override
+                        protected void onFailure(String errorMsg) {
+                            ToastUtil.show(errorMsg);
+                            Log.e("load recordList", errorMsg);
+                        }
+                    });
+        }
+
 
 
     }

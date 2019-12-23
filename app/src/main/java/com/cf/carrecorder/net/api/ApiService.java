@@ -102,4 +102,12 @@ public interface ApiService {
     @POST("app/deleteConllection")
     Observable<HttpResult> deleteConllection(@Body RequestBody body);
 
+    /**
+     * 获取收藏记录
+     * @param body
+     * @return
+     */
+    @POST("device/collectionList")
+    Observable<HttpResult<RecordListData>> collectionList(@Body RequestBody body, @QueryMap HashMap<String, Object> param);
+
 }
