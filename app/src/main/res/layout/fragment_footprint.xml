@@ -144,11 +144,18 @@
                 android:layout_height="1dp"
                 android:background="@color/gray" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_grid"
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipe"
+                android:visibility="gone"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone" />
+                android:layout_height="match_parent">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_grid"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 
             <com.amap.api.maps.MapView
                 android:id="@+id/map_view"

@@ -3,6 +3,7 @@ package com.cf.carrecorder.ui.foorprint;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -38,33 +39,54 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
 
     FootPrintView v;
 
+    private int pageNum = 0;
+    private int pageSize = 10;
+
     @Override
     protected void attachView(BaseFragmentView frgView) {
         this.v = (FootPrintView) frgView;
     }
 
 
-    public void loadGridData(boolean isCollection) {
+    public void loadGridData(boolean isCollection,boolean isReset) {
+        if(isReset){
+            pageNum = 0;
+        }
 
+        Log.i("load recordList pageNum",pageNum + "");
         RecordListBean recordListBean = new RecordListBean();
         recordListBean.setUserId(GlobalConfig.userId);
         if(isCollection){
-            CarRecorderApi.collectionList(recordListBean, 0, 10)
+            CarRecorderApi.collectionList(recordListBean, pageNum, pageSize)
                     .subscribeOn(Schedulers.from(CarRecorderApi.service))
                     .observeOn(AndroidSchedulers.mainThread())
                     .compose(lifeCycleCarrier)
-                    .subscribe(new RxSubscriber<HttpResult<RecordListData>>() {
+                    .subscribe(new RxSubscriber<String>() {
 
                         @Override
-                        protected void onSuccess(HttpResult<RecordListData> result) {
+                        protected void onSuccess(String result) {
                             Log.i("load recordList", result.toString());
-                            if (result.getData() != null) {
-                                if ("0".equals(result.getCode())) {
-                                    v.showGridData(result.getData().getRows());
-                                } else {
-                                    ToastUtil.show(result.getMsg());
+                            RecordListData data = JSON.parseObject(result,RecordListData.class);
+                            if(data.getTotal() / pageSize  == pageNum){
+                                v.refreshComplete();
+                                v.loadMoreEnd();
+                            }else{
+                                if(data != null){
+                                    if(isReset){
+                                        v.clearData();
+                                    }
+                                    v.showGridData(data.getRows());
+                                    pageNum++;
+                                    v.refreshComplete();
+                                    v.loadMoreComplete();
+                                }else{
+                                    v.refreshComplete();
+                                    v.loadMoreEnd();
                                 }
+
                             }
+
+
 
                         }
 
@@ -72,25 +94,40 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
                         protected void onFailure(String errorMsg) {
                             ToastUtil.show(errorMsg);
                             Log.e("load recordList", errorMsg);
+                            v.refreshComplete();
+                            v.loadMoreComplete();
                         }
                     });
         }else{
-            CarRecorderApi.recordList(recordListBean, 0, 10)
+            CarRecorderApi.recordList(recordListBean, pageNum, pageSize)
                     .subscribeOn(Schedulers.from(CarRecorderApi.service))
                     .observeOn(AndroidSchedulers.mainThread())
                     .compose(lifeCycleCarrier)
-                    .subscribe(new RxSubscriber<HttpResult<RecordListData>>() {
+                    .subscribe(new RxSubscriber<String>() {
 
                         @Override
-                        protected void onSuccess(HttpResult<RecordListData> result) {
-                            Log.i("load recordList", result.toString());
-                            if (result.getData() != null) {
-                                if ("0".equals(result.getCode())) {
-                                    v.showGridData(result.getData().getRows());
-                                } else {
-                                    ToastUtil.show(result.getMsg());
+                        protected void onSuccess(String result) {
+                            Log.i("asd",result);
+                            RecordListData data = JSON.parseObject(result,RecordListData.class);
+                            if(data.getTotal() / pageSize  == pageNum){
+                                v.refreshComplete();
+                                v.loadMoreEnd();
+                            }else{
+                                if(data != null){
+                                    if(isReset){
+                                        v.clearData();
+                                    }
+                                    v.showGridData(data.getRows());
+                                    pageNum++;
+                                    v.refreshComplete();
+                                    v.loadMoreComplete();
+                                }else{
+                                    v.refreshComplete();
+                                    v.loadMoreEnd();
                                 }
                             }
+
+
 
                         }
 
@@ -98,6 +135,8 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
                         protected void onFailure(String errorMsg) {
                             ToastUtil.show(errorMsg);
                             Log.e("load recordList", errorMsg);
+                            v.refreshComplete();
+                            v.loadMoreComplete();
                         }
                     });
         }

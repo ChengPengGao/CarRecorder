@@ -34,13 +34,31 @@
     </RelativeLayout>
 
 
-    <TextView
-        android:id="@+id/tv_code"
-        android:textSize="16dp"
-        android:gravity="center"
-        android:textColor="@color/black"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="浙A 45789"/>
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_code"
+            android:textSize="16dp"
+            android:layout_centerInParent="true"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="浙A 45789"/>
+
+        <TextView
+            android:id="@+id/tv_exponent"
+            android:layout_toRightOf="@id/tv_code"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:background="@drawable/sp_exponent_qualified"
+            android:text="66"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
 
 </LinearLayout>

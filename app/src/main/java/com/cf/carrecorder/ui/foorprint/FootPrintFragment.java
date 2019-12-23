@@ -42,6 +42,7 @@ import com.cf.carrecorder.utils.FragmentSwitcher;
 import com.cf.carrecorder.utils.SpacesItemDecoration;
 import com.cf.carrecorder.utils.ToastUtil;
 import com.cf.carrecorder.utils.TypeSafer;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import butterknife.BindView;
 import butterknife.OnCheckedChanged;
@@ -116,6 +118,9 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
 
     List<RecordListData.RowsBean> gridBeans;
 
+    @BindView(R.id.swipe)
+    SwipeRefreshLayout swipe;
+
     private boolean isCollection = false;
 
     public FootPrintFragment(boolean isCollection) {
@@ -155,7 +160,7 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
                 rvGrid.setAdapter(gridAdapter);
                 rvGrid.setLayoutManager(new GridLayoutManager(getActivity(), 4));
                 rvGrid.addItemDecoration(new SpacesItemDecoration(3));
-                presenter.loadGridData(isCollection);
+                presenter.loadGridData(isCollection,true);
                 break;
             case CarRecorderEvent.SELECT:
                 TypeSafer.text(tvSelectCount, "已选择" + gridAdapter.getSelectedData().size() + "张");
@@ -176,7 +181,7 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
             rvGrid.setAdapter(gridAdapter);
             rvGrid.setLayoutManager(new GridLayoutManager(getActivity(), 4));
             rvGrid.addItemDecoration(new SpacesItemDecoration(1));
-            presenter.loadGridData(isCollection);
+            presenter.loadGridData(isCollection,true);
         } else {
             showUnBindLayout();
         }
@@ -190,6 +195,14 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
             ivHBack.setVisibility(View.GONE);
         }
 
+        swipe.setOnRefreshListener(() -> {
+            presenter.loadGridData(isCollection,true);
+        });
+
+        gridAdapter.setEnableLoadMore(true);
+        gridAdapter.setOnLoadMoreListener(() -> {
+           presenter.loadGridData(isCollection,false);
+        });
 
     }
 
@@ -374,21 +387,19 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
     @Override
     public void showGrid() {
         tvSelected.setVisibility(View.VISIBLE);
-        rvGrid.setVisibility(View.VISIBLE);
+        swipe.setVisibility(View.VISIBLE);
         mMapView.setVisibility(View.GONE);
     }
 
     @Override
     public void showMap() {
         tvSelected.setVisibility(View.GONE);
-        rvGrid.setVisibility(View.GONE);
+        swipe.setVisibility(View.GONE);
         mMapView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showGridData(List<RecordListData.RowsBean> datas) {
-
-        gridBeans.clear();
         gridBeans.addAll(datas);
         gridAdapter.notifyDataSetChanged();
     }
@@ -447,6 +458,26 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
     @Override
     public void jumpToReport(List<String> pics) {
         FragmentSwitcher.replaceFragment(new ReportFragment(pics));
+    }
+
+    @Override
+    public void clearData() {
+        gridBeans.clear();
+    }
+
+    @Override
+    public void refreshComplete() {
+        swipe.setRefreshing(false);
+    }
+
+    @Override
+    public void loadMoreComplete() {
+        gridAdapter.loadMoreComplete();
+    }
+
+    @Override
+    public void loadMoreEnd() {
+        gridAdapter.loadMoreEnd();
     }
 
 

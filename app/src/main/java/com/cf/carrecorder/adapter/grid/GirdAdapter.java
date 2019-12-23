@@ -46,6 +46,8 @@ public class GirdAdapter extends BaseQuickAdapter<RecordListData.RowsBean, BaseV
         helper
                 .setText(R.id.tv_time, simpleDateFormat.format(item.getUploadTime()))
                 .setText(R.id.tv_code, item.getCarNo())
+                .setText(R.id.tv_exponent, item.getExponent() + "")
+                .setBackgroundRes(R.id.tv_exponent, item.getBreakSatus() == 0 ? R.drawable.sp_exponent_qualified : R.drawable.sp_exponent_unqualified)
                 .setVisible(R.id.cb, isSelectMode)
                 .setOnCheckedChangeListener(R.id.cb, (buttonView, isChecked) -> {
                     if (isChecked) {

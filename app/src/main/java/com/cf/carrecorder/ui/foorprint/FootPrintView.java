@@ -55,4 +55,12 @@ public interface FootPrintView extends BaseFragmentView {
     void removeList(List<Integer> ids);
 
     void jumpToReport(List<String> pics);
+
+    void clearData();
+
+    void refreshComplete();
+
+    void loadMoreComplete();
+
+    void loadMoreEnd();
 }

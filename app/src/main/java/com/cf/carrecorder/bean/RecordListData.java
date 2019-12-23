@@ -10,9 +10,9 @@ import java.util.List;
 public class RecordListData {
 
     /**
-     * total : 3
-     * rows : [{"id":1,"deviceId":null,"deviceNo":"ss44","photoUrl":"http://www.baidu.com","longitude":154.4564546,"latitude":48845.5555456,"speed":120.55,"uploadTime":454645564}]
+     * total : 152
      * code : 0
+     * rows : [{"latitude":30.232505,"deviceNo":"1233333","uploadTime":1576766031721,"speed":1,"photoUrl":"http://carpicstore.oss-cn-hangzhou.aliyuncs.com/image/201912/d3a4fd64750438b2e60aa84860266a11.jpg","carNo":"暂无车牌","breakSatus":1,"id":160,"longitude":119.926636,"exponent":97},{"latitude":30.232505,"deviceNo":"1233333","uploadTime":1576766021218,"speed":1,"photoUrl":"http://carpicstore.oss-cn-hangzhou.aliyuncs.com/image/201912/3f9d939a4644bdeeefe124eb06060d55.jpg","carNo":"暂无车牌","breakSatus":0,"id":159,"longitude":119.926636,"exponent":43},{"latitude":30.232505,"deviceNo":"1233333","uploadTime":1576765984644,"speed":1,"photoUrl":"http://carpicstore.oss-cn-hangzhou.aliyuncs.com/image/201912/50271d3897d76caf6fce7df79a1b2fbb.jpg","carNo":"暂无车牌","breakSatus":1,"id":158,"longitude":119.926636,"exponent":86},{"latitude":30.232505,"deviceNo":"1233333","uploadTime":1576765936950,"speed":1,"photoUrl":"http://carpicstore.oss-cn-hangzhou.aliyuncs.com/image/201912/205bdec3a41b775f35ae2ec29d988327.jpg","carNo":"暂无车牌","breakSatus":1,"id":157,"longitude":119.926636,"exponent":72},{"latitude":30.232505,"deviceNo":"1233333","uploadTime":1576765629733,"speed":1,"photoUrl":"http://carpicstore.oss-cn-hangzhou.aliyuncs.com/image/201912/3333164e361322b8dcd7792e0dde9ed1.jpg","carNo":"暂无车牌","breakSatus":0,"id":156,"longitude":119.926636,"exponent":21},{"latitude":30.232505,"deviceNo":"1233333","uploadTime":1576765619321,"speed":1,"photoUrl":"http://carpicstore.oss-cn-hangzhou.aliyuncs.com/image/201912/99aa90caa5be1f52f9a700c1f882a546.jpg","carNo":"暂无车牌","breakSatus":1,"id":155,"longitude":119.926636,"exponent":97},{"latitude":30.232505,"deviceNo":"1233333","uploadTime":1576765608798,"speed":1,"photoUrl":"http://carpicstore.oss-cn-hangzhou.aliyuncs.com/image/201912/cd6c0f1cb648c88035ab76404b89c0bc.jpg","carNo":"暂无车牌","breakSatus":1,"id":154,"longitude":119.926636,"exponent":88},{"latitude":30.232505,"deviceNo":"1233333","uploadTime":1576765270268,"speed":1,"photoUrl":"http://carpicstore.oss-cn-hangzhou.aliyuncs.com/image/201912/19fc271069a54244ad5e30906a217a10.jpg","carNo":"暂无车牌","breakSatus":0,"id":153,"longitude":119.926636,"exponent":64},{"latitude":30.232505,"deviceNo":"1233333","uploadTime":1576765099754,"speed":1,"photoUrl":"http://carpicstore.oss-cn-hangzhou.aliyuncs.com/image/201912/5d085444fdaa519ed02d5f036a6923a1.jpg","carNo":"暂无车牌","breakSatus":0,"id":152,"longitude":119.926636,"exponent":31},{"latitude":30.232505,"deviceNo":"1233333","uploadTime":1576765051562,"speed":1,"photoUrl":"http://carpicstore.oss-cn-hangzhou.aliyuncs.com/image/201912/a7fa9ab32ab46c3026273c1aa0d3754d.jpg","carNo":"暂无车牌","breakSatus":1,"id":151,"longitude":119.926636,"exponent":94}]
      */
 
     private int total;
@@ -45,48 +45,35 @@ public class RecordListData {
 
     public static class RowsBean {
         /**
-         * id : 1
-         * deviceId : null
-         * deviceNo : ss44
-         * photoUrl : http://www.baidu.com
-         * longitude : 154.4564546
-         * latitude : 48845.5555456
-         * speed : 120.55
-         * uploadTime : 454645564
+         * latitude : 30.232505
+         * deviceNo : 1233333
+         * uploadTime : 1576766031721
+         * speed : 1.0
+         * photoUrl : http://carpicstore.oss-cn-hangzhou.aliyuncs.com/image/201912/d3a4fd64750438b2e60aa84860266a11.jpg
+         * carNo : 暂无车牌
+         * breakSatus : 1
+         * id : 160
+         * longitude : 119.926636
+         * exponent : 97
          */
 
-        private int id;
-        private Object deviceId;
-        private String deviceNo;
-        private String photoUrl;
-        private double longitude;
         private double latitude;
+        private String deviceNo;
+        private long uploadTime;
         private double speed;
-        private int uploadTime;
+        private String photoUrl;
         private String carNo;
+        private int breakSatus;
+        private int id;
+        private double longitude;
+        private int exponent;
 
-        public String getCarNo() {
-            return carNo;
+        public double getLatitude() {
+            return latitude;
         }
 
-        public void setCarNo(String carNo) {
-            this.carNo = carNo;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public Object getDeviceId() {
-            return deviceId;
-        }
-
-        public void setDeviceId(Object deviceId) {
-            this.deviceId = deviceId;
+        public void setLatitude(double latitude) {
+            this.latitude = latitude;
         }
 
         public String getDeviceNo() {
@@ -97,28 +84,12 @@ public class RecordListData {
             this.deviceNo = deviceNo;
         }
 
-        public String getPhotoUrl() {
-            return photoUrl;
+        public long getUploadTime() {
+            return uploadTime;
         }
 
-        public void setPhotoUrl(String photoUrl) {
-            this.photoUrl = photoUrl;
-        }
-
-        public double getLongitude() {
-            return longitude;
-        }
-
-        public void setLongitude(double longitude) {
-            this.longitude = longitude;
-        }
-
-        public double getLatitude() {
-            return latitude;
-        }
-
-        public void setLatitude(double latitude) {
-            this.latitude = latitude;
+        public void setUploadTime(long uploadTime) {
+            this.uploadTime = uploadTime;
         }
 
         public double getSpeed() {
@@ -129,36 +100,52 @@ public class RecordListData {
             this.speed = speed;
         }
 
-        public int getUploadTime() {
-            return uploadTime;
+        public String getPhotoUrl() {
+            return photoUrl;
         }
 
-        public void setUploadTime(int uploadTime) {
-            this.uploadTime = uploadTime;
+        public void setPhotoUrl(String photoUrl) {
+            this.photoUrl = photoUrl;
         }
 
-        @Override
-        public String toString() {
-            return "RowsBean{" +
-                    "id=" + id +
-                    ", deviceId=" + deviceId +
-                    ", deviceNo='" + deviceNo + '\'' +
-                    ", photoUrl='" + photoUrl + '\'' +
-                    ", longitude=" + longitude +
-                    ", latitude=" + latitude +
-                    ", speed=" + speed +
-                    ", uploadTime=" + uploadTime +
-                    ", carNo='" + carNo + '\'' +
-                    '}';
+        public String getCarNo() {
+            return carNo;
         }
-    }
 
-    @Override
-    public String toString() {
-        return "RecordListData{" +
-                "total=" + total +
-                ", code=" + code +
-                ", rows=" + rows +
-                '}';
+        public void setCarNo(String carNo) {
+            this.carNo = carNo;
+        }
+
+        public int getBreakSatus() {
+            return breakSatus;
+        }
+
+        public void setBreakSatus(int breakSatus) {
+            this.breakSatus = breakSatus;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public double getLongitude() {
+            return longitude;
+        }
+
+        public void setLongitude(double longitude) {
+            this.longitude = longitude;
+        }
+
+        public int getExponent() {
+            return exponent;
+        }
+
+        public void setExponent(int exponent) {
+            this.exponent = exponent;
+        }
     }
 }
