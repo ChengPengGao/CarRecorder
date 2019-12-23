@@ -65,26 +65,36 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
 
                         @Override
                         protected void onSuccess(String result) {
-                            Log.i("load recordList", result.toString());
+                            Log.i("asd", result.toString());
                             RecordListData data = JSON.parseObject(result,RecordListData.class);
-                            if(data.getTotal() / pageSize  == pageNum){
+                            if(data.getTotal() / pageSize == 0){
                                 v.refreshComplete();
+                                if(isReset){
+                                    v.clearData();
+                                }
+                                v.showGridData(data.getRows());
                                 v.loadMoreEnd();
                             }else{
-                                if(data != null){
-                                    if(isReset){
-                                        v.clearData();
-                                    }
-                                    v.showGridData(data.getRows());
-                                    pageNum++;
-                                    v.refreshComplete();
-                                    v.loadMoreComplete();
-                                }else{
+                                if(data.getTotal() / pageSize  == pageNum){
                                     v.refreshComplete();
                                     v.loadMoreEnd();
-                                }
+                                }else{
+                                    if(data != null){
+                                        if(isReset){
+                                            v.clearData();
+                                        }
+                                        v.showGridData(data.getRows());
+                                        pageNum++;
+                                        v.refreshComplete();
+                                        v.loadMoreComplete();
+                                    }else{
+                                        v.refreshComplete();
+                                        v.loadMoreEnd();
+                                    }
 
+                                }
                             }
+
 
 
 
@@ -92,6 +102,7 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
 
                         @Override
                         protected void onFailure(String errorMsg) {
+                            Log.i("asd", errorMsg);
                             ToastUtil.show(errorMsg);
                             Log.e("load recordList", errorMsg);
                             v.refreshComplete();
@@ -107,24 +118,33 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
 
                         @Override
                         protected void onSuccess(String result) {
-                            Log.i("asd",result);
                             RecordListData data = JSON.parseObject(result,RecordListData.class);
-                            if(data.getTotal() / pageSize  == pageNum){
+                            if(data.getTotal() / pageSize == 0){
                                 v.refreshComplete();
+                                if(isReset){
+                                    v.clearData();
+                                }
+                                v.showGridData(data.getRows());
                                 v.loadMoreEnd();
                             }else{
-                                if(data != null){
-                                    if(isReset){
-                                        v.clearData();
-                                    }
-                                    v.showGridData(data.getRows());
-                                    pageNum++;
-                                    v.refreshComplete();
-                                    v.loadMoreComplete();
-                                }else{
+                                if(data.getTotal() / pageSize  == pageNum){
                                     v.refreshComplete();
                                     v.loadMoreEnd();
+                                }else{
+                                    if(data != null){
+                                        if(isReset){
+                                            v.clearData();
+                                        }
+                                        v.showGridData(data.getRows());
+                                        pageNum++;
+                                        v.refreshComplete();
+                                        v.loadMoreComplete();
+                                    }else{
+                                        v.refreshComplete();
+                                        v.loadMoreEnd();
+                                    }
                                 }
+
                             }
 
 

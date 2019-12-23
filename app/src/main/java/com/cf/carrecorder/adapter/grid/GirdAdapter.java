@@ -42,7 +42,7 @@ public class GirdAdapter extends BaseQuickAdapter<RecordListData.RowsBean, BaseV
 
     @Override
     protected void convert(@NonNull BaseViewHolder helper, RecordListData.RowsBean item) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
         helper
                 .setText(R.id.tv_time, simpleDateFormat.format(item.getUploadTime()))
                 .setText(R.id.tv_code, item.getCarNo())

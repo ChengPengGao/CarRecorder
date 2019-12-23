@@ -107,7 +107,7 @@ public interface ApiService {
      * @param body
      * @return
      */
-    @POST("device/collectionList")
+    @POST("app/collectionList")
     Observable<String> collectionList(@Body RequestBody body, @QueryMap HashMap<String, Object> param);
 
 }

@@ -132,7 +132,7 @@
                 app:editable="true"
                 app:addDrawable="@drawable/img_add"
                 app:imageLayoutMode="STATIC"
-                app:max="9"
+                app:max="3"
                 app:ratio="1"
                 app:space="6dp"
                 app:span="3" />
