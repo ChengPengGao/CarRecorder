@@ -31,6 +31,7 @@ import com.cf.carrecorder.adapter.grid.GirdAdapter;
 import com.cf.carrecorder.adapter.grid.InfoWinAdapter;
 import com.cf.carrecorder.base.fragment.BaseFragment;
 import com.cf.carrecorder.bean.RecordListData;
+import com.cf.carrecorder.bean.RecordListSection;
 import com.cf.carrecorder.config.GlobalConfig;
 import com.cf.carrecorder.event.CarRecorderEvent;
 import com.cf.carrecorder.ui.bind.DeviceBindFragment;
@@ -52,6 +53,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import butterknife.BindView;
@@ -116,7 +118,7 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
 
     GirdAdapter gridAdapter;
 
-    List<RecordListData.RowsBean> gridBeans;
+    List<RecordListSection> gridBeans;
 
     @BindView(R.id.swipe)
     SwipeRefreshLayout swipe;
@@ -159,7 +161,6 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
                 gridAdapter = new GirdAdapter(gridBeans, getActivity());
                 rvGrid.setAdapter(gridAdapter);
                 rvGrid.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-                rvGrid.addItemDecoration(new SpacesItemDecoration(3));
                 presenter.loadGridData(isCollection,true);
                 break;
             case CarRecorderEvent.SELECT:
@@ -179,8 +180,7 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
             gridBeans = new ArrayList<>();
             gridAdapter = new GirdAdapter(gridBeans, getActivity());
             rvGrid.setAdapter(gridAdapter);
-            rvGrid.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-            rvGrid.addItemDecoration(new SpacesItemDecoration(1));
+            rvGrid.setLayoutManager(new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.VERTICAL));
             presenter.loadGridData(isCollection,true);
         } else {
             showUnBindLayout();
@@ -276,7 +276,7 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
     /**
      * 设置去过的地方
      */
-    public void setInfoWindow(List<RecordListData.RowsBean> beans) {
+    public void setInfoWindow(List<RecordListSection> beans) {
         if (beans != null) {
             drawMaker(30.244239, 120.184250, "");
             drawMaker(30.321842, 120.171429, "");
@@ -399,7 +399,7 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
     }
 
     @Override
-    public void showGridData(List<RecordListData.RowsBean> datas) {
+    public void showGridData(List<RecordListSection> datas) {
         gridBeans.addAll(datas);
         gridAdapter.notifyDataSetChanged();
     }
@@ -441,11 +441,16 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
     @Override
     public void removeList(List<Integer> ids) {
 
-        List<RecordListData.RowsBean> removeBeans = new ArrayList<>();
+        List<RecordListSection> removeBeans = new ArrayList<>();
         for (int i = 0; i < gridBeans.size(); i++) {
-            if (ids.contains(gridBeans.get(i).getId())) {
-                removeBeans.add(gridBeans.get(i));
+
+            if(!gridBeans.get(i).isHeader){
+                if (ids.contains(gridBeans.get(i).t.getId())) {
+                    removeBeans.add(gridBeans.get(i));
+                }
             }
+
+
 
         }
         gridAdapter.changeSelected();
@@ -528,9 +533,9 @@ public class FootPrintFragment extends BaseFragment<FootPrintView, FootPrintPres
     @Override
     public boolean onMarkerClick(Marker marker) {
         ToastUtil.show("marker");
-        RecordListData.RowsBean rowsBean = new RecordListData.RowsBean();
+        RecordListData.RowsBean.DeviceListBean rowsBean = new RecordListData.RowsBean.DeviceListBean();
         if (gridBeans != null && gridBeans.size() > 0) {
-            rowsBean.setPhotoUrl(gridBeans.get(0).getPhotoUrl());
+            rowsBean.setPhotoUrl(gridBeans.get(0).t.getPhotoUrl());
         }
         rowsBean.setLatitude(marker.getPosition().latitude);
         rowsBean.setLatitude(marker.getPosition().longitude);

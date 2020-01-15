@@ -152,7 +152,8 @@ public class ReportFragment extends BaseFragment<ReportView, ReportPresenter> im
                     .forResult(CODE_PICS);
         });
 
-
+        pvType.setTextSize(50);
+        pvCarType.setTextSize(50);
         pvType.setItems(Item.getTypeItems(), item -> {
             breakType = item.getValue();
             TypeSafer.text(tvBreakType, item.getText());

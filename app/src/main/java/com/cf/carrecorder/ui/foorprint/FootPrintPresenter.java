@@ -13,6 +13,7 @@ import com.cf.carrecorder.base.fragment.BaseFragmentView;
 import com.cf.carrecorder.bean.GridBean;
 import com.cf.carrecorder.bean.HttpResult;
 import com.cf.carrecorder.bean.RecordListData;
+import com.cf.carrecorder.bean.RecordListSection;
 import com.cf.carrecorder.bean.RxSubscriber;
 import com.cf.carrecorder.bean.request.AddConllectionBean;
 import com.cf.carrecorder.bean.request.RecordListBean;
@@ -72,7 +73,20 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
                                 if(isReset){
                                     v.clearData();
                                 }
-                                v.showGridData(data.getRows());
+
+
+                                List<RecordListSection> newDatas = new ArrayList<>();
+                                for(int i = 0 ; i < data.getRows().size();i++){
+                                    RecordListSection sectionHeader = new RecordListSection(true, data.getRows().get(i).getTime());
+                                    newDatas.add(sectionHeader);
+                                    if (!ListUtil.isEmpty(data.getRows().get(i).getDeviceList())) {
+                                        for (int j = 0; j < data.getRows().get(i).getDeviceList().size(); j++) {
+                                            RecordListSection section = new RecordListSection(data.getRows().get(i).getDeviceList().get(j));
+                                            newDatas.add(section);
+                                        }
+                                    }
+                                }
+                                v.showGridData(newDatas);
                                 v.loadMoreEnd();
                             }else{
                                 if(data.getTotal() / pageSize  == pageNum){
@@ -83,7 +97,20 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
                                         if(isReset){
                                             v.clearData();
                                         }
-                                        v.showGridData(data.getRows());
+
+
+                                        List<RecordListSection> newDatas = new ArrayList<>();
+                                        for(int i = 0 ; i < data.getRows().size();i++){
+                                            RecordListSection sectionHeader = new RecordListSection(true, data.getRows().get(i).getTime());
+                                            newDatas.add(sectionHeader);
+                                            if (!ListUtil.isEmpty(data.getRows().get(i).getDeviceList())) {
+                                                for (int j = 0; j < data.getRows().get(i).getDeviceList().size(); j++) {
+                                                    RecordListSection section = new RecordListSection(data.getRows().get(i).getDeviceList().get(j));
+                                                    newDatas.add(section);
+                                                }
+                                            }
+                                        }
+                                        v.showGridData(newDatas);
                                         pageNum++;
                                         v.refreshComplete();
                                         v.loadMoreComplete();
@@ -118,13 +145,25 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
 
                         @Override
                         protected void onSuccess(String result) {
+                            Log.i("asd", result.toString());
                             RecordListData data = JSON.parseObject(result,RecordListData.class);
                             if(data.getTotal() / pageSize == 0){
                                 v.refreshComplete();
                                 if(isReset){
                                     v.clearData();
                                 }
-                                v.showGridData(data.getRows());
+                                List<RecordListSection> newDatas = new ArrayList<>();
+                                for(int i = 0 ; i < data.getRows().size();i++){
+                                    RecordListSection sectionHeader = new RecordListSection(true, data.getRows().get(i).getTime());
+                                    newDatas.add(sectionHeader);
+                                    if (!ListUtil.isEmpty(data.getRows().get(i).getDeviceList())) {
+                                        for (int j = 0; j < data.getRows().get(i).getDeviceList().size(); j++) {
+                                            RecordListSection section = new RecordListSection(data.getRows().get(i).getDeviceList().get(j));
+                                            newDatas.add(section);
+                                        }
+                                    }
+                                }
+                                v.showGridData(newDatas);
                                 v.loadMoreEnd();
                             }else{
                                 if(data.getTotal() / pageSize  == pageNum){
@@ -135,7 +174,18 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
                                         if(isReset){
                                             v.clearData();
                                         }
-                                        v.showGridData(data.getRows());
+                                        List<RecordListSection> newDatas = new ArrayList<>();
+                                        for(int i = 0 ; i < data.getRows().size();i++){
+                                            RecordListSection sectionHeader = new RecordListSection(true, data.getRows().get(i).getTime());
+                                            newDatas.add(sectionHeader);
+                                            if (!ListUtil.isEmpty(data.getRows().get(i).getDeviceList())) {
+                                                for (int j = 0; j < data.getRows().get(i).getDeviceList().size(); j++) {
+                                                    RecordListSection section = new RecordListSection(data.getRows().get(i).getDeviceList().get(j));
+                                                    newDatas.add(section);
+                                                }
+                                            }
+                                        }
+                                        v.showGridData(newDatas);
                                         pageNum++;
                                         v.refreshComplete();
                                         v.loadMoreComplete();
@@ -165,13 +215,13 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
 
     }
 
-    public void saveImg(List<RecordListData.RowsBean> selectedData) {
+    public void saveImg(List<RecordListData.RowsBean.DeviceListBean> selectedData) {
         if (ListUtil.isEmpty(selectedData)) {
             ToastUtil.show("请选择");
             return;
         }
 
-        for (RecordListData.RowsBean rowsBean : selectedData) {
+        for (RecordListData.RowsBean.DeviceListBean rowsBean : selectedData) {
             Glide.with(CarRecorderContext.context).load(rowsBean.getPhotoUrl()).asBitmap().into(new SimpleTarget<Bitmap>() {
                 @Override
                 public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
@@ -185,7 +235,7 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
 
     }
 
-    public void remove(List<RecordListData.RowsBean> selectedData) {
+    public void remove(List<RecordListData.RowsBean.DeviceListBean> selectedData) {
         if (ListUtil.isEmpty(selectedData)) {
             ToastUtil.show("请选择");
             return;
@@ -194,9 +244,10 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
         AddConllectionBean addConllectionBean = new AddConllectionBean();
         addConllectionBean.setUserId(GlobalConfig.userId);
         List<Integer> ids = new ArrayList<>();
-        for (RecordListData.RowsBean data : selectedData) {
+        for (RecordListData.RowsBean.DeviceListBean data : selectedData) {
             ids.add(data.getId());
         }
+        Log.i("remove","remove ids : " + ids.toString());
         addConllectionBean.setDrivingList(ids);
         CarRecorderApi.deleteConllection(addConllectionBean)
                 .subscribeOn(Schedulers.from(CarRecorderApi.service))
@@ -219,7 +270,7 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
                 });
     }
 
-    public void collect(List<RecordListData.RowsBean> selectedData) {
+    public void collect(List<RecordListData.RowsBean.DeviceListBean> selectedData) {
         if (ListUtil.isEmpty(selectedData)) {
             ToastUtil.show("请选择");
             return;
@@ -228,7 +279,7 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
         AddConllectionBean addConllectionBean = new AddConllectionBean();
         addConllectionBean.setUserId(GlobalConfig.userId);
         List<Integer> ids = new ArrayList<>();
-        for (RecordListData.RowsBean data : selectedData) {
+        for (RecordListData.RowsBean.DeviceListBean data : selectedData) {
             ids.add(data.getId());
         }
         addConllectionBean.setDrivingList(ids);
@@ -262,7 +313,7 @@ public class FootPrintPresenter extends BaseFragmentPresenter<BaseFragmentView> 
      *
      * @param selectedData
      */
-    public void report(List<RecordListData.RowsBean> selectedData) {
+    public void report(List<RecordListData.RowsBean.DeviceListBean> selectedData) {
         if (ListUtil.isEmpty(selectedData)) {
             ToastUtil.show("请选择");
             return;

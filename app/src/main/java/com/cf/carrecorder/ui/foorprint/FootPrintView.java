@@ -2,6 +2,7 @@ package com.cf.carrecorder.ui.foorprint;
 
 import com.cf.carrecorder.base.fragment.BaseFragmentView;
 import com.cf.carrecorder.bean.RecordListData;
+import com.cf.carrecorder.bean.RecordListSection;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public interface FootPrintView extends BaseFragmentView {
      * 显示网格布局
      * @param datas
      */
-    void showGridData(List<RecordListData.RowsBean> datas);
+    void showGridData(List<RecordListSection> datas);
 
     /**
      * 显示底部布局

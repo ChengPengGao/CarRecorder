@@ -33,7 +33,7 @@ public class ShowInfoFragment extends BaseFragment<ShowInfoView, ShowInfoPresent
     ImageView imageView;
 
 
-    public static ShowInfoFragment getInstance(RecordListData.RowsBean beans) {
+    public static ShowInfoFragment getInstance(RecordListData.RowsBean.DeviceListBean beans) {
         if (instance == null) {
             Bundle args = new Bundle();
             args.putString( KEY_USER_ID, beans.getPhotoUrl() );
